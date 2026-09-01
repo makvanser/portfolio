@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Иван Макогон — архитектор</title>
+<meta name="description" content="Иван Макогон — архитектор с пятнадцатилетним опытом. Архив работ: жилые комплексы, медицинские и общественные здания, конкурсы и визуализации.">
+<link rel="canonical" href="https://makvanser.github.io/portfolio/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Иван Макогон — архитектор">
+<meta property="og:description" content="Иван Макогон — архитектор с пятнадцатилетним опытом. Архив работ: жилые комплексы, медицинские и общественные здания, конкурсы и визуализации.">
+<meta property="og:url" content="https://makvanser.github.io/portfolio/">
+<meta property="og:image" content="https://makvanser.github.io/portfolio/assets/img/be-02.webp">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A0908">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0908'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='19' font-weight='300' fill='%23F1EEE8' text-anchor='middle'>И</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Onest:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/be-02.webp" fetchpriority="high">
+<style>
+  *,*::before,*::after{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;}}
+  body{margin:0;background:#F1EEE8;color:#0A0908;
+    font-family:"Familjen Grotesk",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  img{max-width:100%;}
+  :focus-visible{outline:2px solid #AD5E2F;outline-offset:3px;}
+  ::selection{background:#AD5E2F;color:#F1EEE8;}
+
+  /* shared image frame */
+  .imgph{position:relative;overflow:hidden;background:#0C0C0A;}
+  .imgph img{width:100%;height:100%;object-fit:cover;display:block;}
+  .imgph img[data-kind="poster"]{object-position:center 22%;}
+  .imgph img[data-kind="plan"]{object-fit:contain;background:#F1EFE8;}
+  .lead-mark,.award-mark{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;
+    text-transform:uppercase;white-space:nowrap;}
+  .f-row .lead-mark{color:var(--brick);margin-left:10px;}
+  .f-row .award-mark{color:var(--brick);margin-left:10px;}
+  .vid-badge{position:absolute;left:8px;top:8px;font-family:"IBM Plex Mono",monospace;font-size:10px;
+    letter-spacing:.08em;background:#C1442F;color:#F2EFE8;padding:3px 8px;border-radius:2px;}
+
+  /* grain: breaks the flatness of large photographic fields */
+  .grain{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.16;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.55'/></svg>");}
+
+  /* skip link */
+  .skip{position:absolute;left:-9999px;top:0;z-index:60;background:#0A0908;color:#F1EEE8;
+    padding:10px 16px;font-size:13px;text-decoration:none;}
+  .skip:focus{left:8px;top:8px;}
+
+  /* ============ ABOUT ============ */
+  /* ============ ABOUT ============ */
+  .ab-portrait{flex:none;overflow:hidden;background:#0C0C0A;}
+  .ab-portrait img{width:100%;height:100%;object-fit:cover;}
+  .ab-body{min-width:0;}
+  .ab-h{margin:0 0 14px;}
+  .ab-lead{margin:0 0 14px;font-weight:600;}
+  .ab-p{margin:0 0 12px;max-width:62ch;line-height:1.62;text-wrap:pretty;}
+  .ab-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+  .ab-btn{display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;
+    font-family:"Familjen Grotesk",sans-serif;font-size:13.5px;font-weight:600;
+    padding:11px 18px;border-radius:2px;border:1px solid transparent;}
+  @media (prefers-reduced-motion: no-preference){
+    .ab-btn{transition:background .2s,color .2s,border-color .2s,transform .12s;}
+    .ab-btn:active{transform:translateY(1px);}
+  }
+
+  .f-about{background:var(--paper);color:var(--ink);display:grid;grid-template-columns:300px 1fr;
+    gap:clamp(22px,4vw,60px);align-items:start;padding:clamp(40px,7vw,96px) clamp(16px,4vw,48px);
+    max-width:1400px;margin:0 auto;}
+  .f-about .ab-portrait{aspect-ratio:3/4;}
+  .f-about .ab-h{font-family:"Onest",sans-serif;font-weight:500;font-size:clamp(23px,3.6vw,40px);letter-spacing:-0.01em;}
+  .f-about .ab-lead{font-size:16.5px;}
+  .f-about .ab-p{font-size:15px;color:#4B4339;}
+  .f-about .ab-btn.primary{background:var(--brick);color:var(--paper);}
+  .f-about .ab-btn.primary:hover{background:var(--brick-deep);}
+  .f-about .ab-btn.ghost{border-color:#CFC7B8;color:var(--ink);}
+  .f-about .ab-btn.ghost:hover{border-color:var(--ink);}
+  @media (max-width:820px){.f-about{grid-template-columns:1fr;} .f-about .ab-portrait{max-width:240px;}}
+
+
+  /* ============ MOTION ============ */
+  @media (prefers-reduced-motion: no-preference){
+    .imgph img{transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .22s ease;}
+
+    .reveal{opacity:0;transform:translateY(20px);
+      transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);}
+    .reveal.in{opacity:1;transform:none;}
+  }
+
+  /* ======================================================
+     STAGE F — Archive (ref-026 Eladio Dieste)
+     Warm brick photography, oversized neutral grotesk pinned to
+     opposite corners, hairline nav across the hero, off-black
+     timeline with huge numerals and a photo mosaic.
+     Deviation from the reference: it uses pure #000; this uses a
+     warm off-black, per the redesign audit.
+     ====================================================== */
+  .stage-f{--paper:#F1EEE8;--ink:#0A0908;--brick:#AD5E2F;--brick-deep:#7A2F18;--stone:#8A7F72;
+    background:var(--paper);color:var(--ink);font-family:"Familjen Grotesk",sans-serif;}
+
+  .f-hero{position:relative;min-height:100dvh;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;}
+  .f-hero .f-shot{position:absolute;inset:0;background:var(--ink);}
+  .f-hero .f-shot img{width:100%;height:100%;object-fit:cover;}
+  .f-hero .f-veil{position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(10,9,8,.38) 0%,rgba(10,9,8,.04) 42%,rgba(10,9,8,.5) 100%);}
+  .f-name{position:relative;z-index:2;font-family:"Onest",system-ui,sans-serif;font-weight:300;
+    font-size:clamp(46px,13vw,182px);line-height:.84;letter-spacing:-0.022em;color:var(--paper);margin:0;
+    text-shadow:0 2px 40px rgba(14,10,5,.36);}
+  .f-name-top{align-self:flex-start;padding:clamp(12px,2.2vw,26px) clamp(16px,4vw,48px) 0;}
+  .f-name-bottom{align-self:flex-end;text-align:right;padding:0 clamp(16px,4vw,48px) clamp(14px,2.6vw,36px);}
+  .f-nav{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px clamp(12px,3vw,40px);
+    padding:11px clamp(16px,4vw,48px) 0;border-top:1px solid rgba(241,238,232,.5);
+    font-size:13px;color:var(--paper);}
+  .f-nav a{color:inherit;text-decoration:none;opacity:.82;}
+  .f-nav a:hover{opacity:1;}
+  .f-nav .on{display:inline-flex;align-items:center;gap:7px;opacity:1;}
+  .f-nav .on::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--paper);}
+
+  .f-timeline{background:var(--ink);color:var(--paper);padding:clamp(44px,7vw,104px) clamp(16px,4vw,48px) clamp(30px,5vw,64px);}
+  .f-lede{max-width:56ch;margin:0 0 clamp(26px,4vw,46px);color:#C4BBAE;font-size:clamp(15px,1.6vw,18px);line-height:1.6;text-wrap:pretty;}
+  .f-lede b{color:var(--paper);font-weight:600;}
+  .f-row{display:grid;grid-template-columns:minmax(70px,11vw) 1fr auto;gap:clamp(12px,3vw,40px);align-items:baseline;
+    width:100%;padding:clamp(14px,2.2vw,26px) 0;border:0;border-top:1px solid rgba(241,238,232,.15);
+    background:none;text-align:left;color:inherit;cursor:pointer;font:inherit;}
+  .f-row:hover{border-top-color:rgba(241,238,232,.42);}
+  .f-row .yr{font-family:"Onest",system-ui,sans-serif;font-weight:300;font-size:clamp(30px,5.6vw,78px);
+    line-height:.88;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;}
+  .f-row .ttl{font-size:clamp(15px,1.9vw,23px);line-height:1.2;text-wrap:balance;}
+  .f-row .sig{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--stone);white-space:nowrap;
+    font-variant-numeric:tabular-nums;}
+  .f-row[aria-expanded="true"] .yr{color:var(--brick);}
+  .f-row[aria-expanded="true"] .sig{color:var(--brick);}
+  .f-rowset:last-child .f-row{border-bottom:1px solid rgba(241,238,232,.15);}
+  .f-rowset[data-open="true"] .f-row{border-bottom:0;}
+  .f-panel{overflow:hidden;max-height:0;}
+  .f-panel[data-open="true"]{max-height:12000px;}
+  .f-desc{max-width:68ch;margin:18px 0 4px;font-size:15px;line-height:1.64;color:#B9AFA0;text-wrap:pretty;}
+  .f-desc b{color:var(--paper);font-weight:600;}
+  .f-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:14px 0 clamp(18px,3vw,32px);}
+  .f-series{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+    margin:14px 0 2px;padding-bottom:8px;border-bottom:1px solid rgba(241,238,232,.18);
+    font-family:"Familjen Grotesk",sans-serif;font-weight:600;font-size:14px;color:var(--paper);}
+  .f-series:first-child{margin-top:4px;}
+  .f-series .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--stone);font-weight:400;
+    font-variant-numeric:tabular-nums;}
+  .f-mosaic .imgph{grid-column:span 2;aspect-ratio:4/3;background:#141210;}
+  .f-mosaic .imgph:nth-child(6n+1){grid-column:span 4;aspect-ratio:16/9;}
+  .f-mosaic .imgph img[data-kind="plan"]{background:#F1EEE8;}
+  .f-mosaic .imgph img[data-kind="poster"]{object-position:center 18%;}
+  .f-note{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--stone);padding-bottom:16px;}
+
+  .f-bio{padding:clamp(56px,9vw,132px) clamp(16px,4vw,48px);max-width:1400px;margin:0 auto;}
+  .f-statement{font-family:"Onest",system-ui,sans-serif;font-weight:400;
+    font-size:clamp(26px,4.6vw,62px);line-height:1.08;letter-spacing:-0.018em;margin:0 0 clamp(30px,4vw,56px);
+    max-width:17ch;text-wrap:balance;}
+  .f-statement em{font-style:normal;color:var(--brick);}
+  .f-bio-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,64px);max-width:1000px;}
+  .f-bio-cols p{margin:0;font-size:15.5px;line-height:1.62;color:#4B4339;max-width:62ch;text-wrap:pretty;}
+  @media (max-width:720px){.f-bio-cols{grid-template-columns:1fr;}}
+
+  .f-strip{position:relative;min-height:62dvh;overflow:hidden;background:var(--ink);}
+  .f-strip .imgph{position:absolute;inset:0;}
+  .f-strip .cap{position:relative;z-index:2;height:100%;display:flex;align-items:flex-end;
+    padding:clamp(20px,4vw,52px);}
+  .f-strip.right .cap{justify-content:flex-end;text-align:right;}
+  .f-strip .cap span{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.05em;
+    color:var(--paper);background:rgba(10,9,8,.5);padding:6px 10px;}
+
+  .f-footer{background:var(--brick-deep);color:var(--paper);padding:clamp(46px,7vw,96px) clamp(16px,4vw,48px);}
+  .f-footer .fw{font-family:"Onest",system-ui,sans-serif;font-weight:300;font-size:clamp(34px,7vw,96px);
+    line-height:.9;letter-spacing:-0.022em;margin:0 0 clamp(20px,3vw,38px);}
+  .f-footer .fl{display:flex;flex-wrap:wrap;gap:14px 40px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;}
+  .f-footer a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(241,238,232,.45);padding-bottom:2px;}
+  .f-footer a:hover{border-bottom-color:var(--paper);}
+
+  @media (prefers-reduced-motion: no-preference){
+    .f-panel{transition:max-height .55s cubic-bezier(.16,1,.3,1);}
+    .f-row{transition:border-color .25s;}
+    .f-row:active{transform:translateY(1px);}
+    .f-row .yr{transition:color .25s;}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#f-archive">К архиву работ</a>
+<main class="stage-f">
+  <header class="f-hero">
+    <div class="f-shot"><img data-f-hero fetchpriority="high" decoding="async" alt="Bertha Village, Кипр — жилые объёмы на опорах в сумерках"></div>
+    <div class="f-veil"></div>
+    <h1 class="f-name f-name-top">Иван</h1>
+    <nav class="f-nav">
+      <a class="on" href="#f-archive">Архив</a>
+      <a href="#f-bio">Биография</a>
+      <a href="#f-works">Работы</a>
+      <a href="mailto:makvanser@gmail.com">Связаться</a>
+      <a href="#f-about">Об авторе</a>
+    </nav>
+    <h1 class="f-name f-name-bottom">Макогон</h1>
+  </header>
+
+  <section class="f-timeline" id="f-archive">
+    <p class="f-lede"><b>Архив работ.</b> Пятнадцать лет практики, конкурсов и визуализаций для бюро. Нажмите на запись, чтобы раскрыть её материалы.</p>
+    <div data-ftimeline></div>
+    <p class="f-note">Записи пронумерованы по порядку архива. Даты проектов не публикуются.</p>
+  </section>
+
+  <section class="f-bio" id="f-bio">
+    <p class="f-statement">Архитектура, дизайн и <em>урбанистика</em></p>
+  </section>
+
+  <div id="f-works" data-fworks></div>
+  <div class="f-about" id="f-about" data-about="f"></div>
+
+  <footer class="f-footer">
+    <p class="fw">Открыт к работе</p>
+    <div class="fl">
+      <a href="mailto:makvanser@gmail.com">makvanser@gmail.com</a>
+      <a href="tel:+995595906096">+995 595 90 60 96</a>
+      <a href="https://t.me/makvanser" target="_blank" rel="noopener">@makvanser</a>
+      <a href="https://t.me/ai_architecture_prompt" target="_blank" rel="noopener">канал AI Architecture Prompt</a>
+    </div>
+  </footer>
+</main>
+<div class="grain" aria-hidden="true"></div>
+<script>
+(function(){
+  "use strict";
+
+  // images ship as files next to the page, not as inline data
+  function src(id){ return "assets/img/" + id + ".webp"; }
+
+  function im(id,kind,cap,series){ return {i:id, k:kind||"render", c:cap||"", s:series||""}; }
+
+  var CL = [
+    im("cl-01","render","Общий вид, зимние сумерки","Рендеры"),
+    im("cl-02","render","Двор, вечернее освещение","Рендеры"),
+    im("cl-03","render","Коридор входной группы","Рендеры"),
+    im("cl-04","render","Зал ожидания","Рендеры"),
+    im("cl-05","render","Кабинет врача","Рендеры"),
+    im("cl-06","render","Кабинет, зона приёма","Рендеры"),
+    im("cl-07","render","Фасад со стороны двора","Рендеры"),
+    im("cl-08","render","Холл, навигация","Рендеры"),
+    im("cl-09","render","Входная группа","Рендеры"),
+    im("cl-10","render","Коридор отделения","Рендеры"),
+    im("cl-11","plan","План 1 этажа","Планы"),
+    im("cl-12","plan","План 2 этажа","Планы"),
+    im("cl-13","plan","План подземного этажа","Планы")
+  ];
+
+  var BI = [im("bi-01","poster","Конкурсный планшет")];
+  var biCaps = {2:"Интерьер, ветвящаяся структура",3:"Панорама куполов на закате",4:"Комплекс над водой",
+                13:"Интерьер, биолюминесценция",14:"Фронтальный вид",15:"Общий вид на фоне города"};
+  for(var n=2;n<=26;n++){
+    var id="bi-"+(n<10?"0":"")+n;
+    BI.push(im(id,"render",biCaps[n]||""));
+  }
+
+  var SC = [
+    im("sc-03","render","Главный фасад, вечернее солнце"),
+    im("sc-02","render","Входная группа"),
+    im("sc-01","render","Общий вид со двора"),
+    im("sc-04","render","Дворовый фасад"),
+    im("sc-05","render","Фрагмент фасада")
+  ];
+
+  var BE = [
+    im("be-01","render","Мастер-план посёлка, дневной вид","Мастер-план"),
+    im("be-02","render","Жилые объёмы на опорах, сумерки","Мастер-план"),
+    im("be-03","render","","Мастер-план"),
+    im("be-04","render","","Мастер-план"),
+    im("be-05","render","","Мастер-план"),
+    im("be-06","render","Таунхаусы, нумерация из кортена","Жилые кластеры"),
+    im("be-07","render","","Жилые кластеры"),
+    im("be-08","render","","Жилые кластеры"),
+    im("be-09","render","","Жилые кластеры"),
+    im("be-10","render","Проход между блоками, вид на горы","Жилые кластеры"),
+    im("be-11","render","","Жилые кластеры"),
+    im("be-12","render","Барная зона ресторана","Ресторан"),
+    im("be-13","render","","Ресторан"),
+    im("be-14","render","","Ресторан"),
+    im("be-15","render","","Ресторан"),
+    im("be-16","render","Обеденный зал на закате","Ресторан"),
+    im("be-17","render","","Ресторан"),
+    im("be-18","render","","Ресторан"),
+    im("be-19","render","","Ресторан")
+  ];
+
+  var RF = [
+    im("rf-06","render","Городской парк, навесы-кроны"),
+    im("rf-07","render","Городской парк, сцена общения"),
+    im("rf-01","render","Жители симбиотического города"),
+    im("rf-02","render","Улица города будущего"),
+    im("rf-04","render","Общественное пространство"),
+    im("rf-05","render","Общественное пространство, ярус"),
+    im("rf-03","render","Интерьер квартиры")
+  ];
+
+  var AM = [
+    im("am-01","poster","Конкурсный планшет"),
+    im("am-02","poster","Конкурсный планшет"),
+    im("am-03","render","Небоскрёб, визуализация")
+  ];
+
+  var MV = [
+    im("mv-01","render","Главный вход, сумерки"),
+    im("mv-05","render","Панорама фасада на закате"),
+    im("mv-02","render","Фрагмент галереи"),
+    im("mv-03","render","Общий вид"),
+    im("mv-04","render","Вечернее освещение")
+  ];
+
+  var KR = [im("kr-01","video","Кадр из ролика · 1280×720 · 21 с")];
+
+  var BIO = {
+    lead: "Я архитектор с более чем пятнадцатилетним опытом работы.",
+    paras: [
+      "Проектировал жилые комплексы, медицинские и общественные здания, малоэтажные объекты. Работал как с концепциями, так и с рабочей документацией и координацией проекта.",
+      "В работе использую Revit, Archicad, Rhino, Grasshopper и GIS. Последние несколько лет много занимаюсь применением ИИ в архитектуре — от исследований и визуализации до автоматизации рутинных процессов и разработки собственных инструментов.",
+      "Мне интересны проекты, где архитектурное решение вырастает из конкретного места, рельефа, климата и требований к зданию, а не существует отдельно от них."
+    ],
+    links: [
+      {href:"https://t.me/makvanser", label:"Telegram — @makvanser", kind:"primary"},
+      {href:"https://t.me/ai_architecture_prompt", label:"Канал — AI Architecture Prompt", kind:"ghost"},
+      {href:"mailto:makvanser@gmail.com", label:"makvanser@gmail.com", kind:"ghost"}
+    ]
+  };
+
+  function aboutBlock(host, opts){
+    opts = opts || {};
+    var fig = el("div", "ab-portrait imgph");
+    var im2 = document.createElement("img");
+    im2.src = src("portrait");
+    im2.alt = "Иван Макогон, архитектор";
+    im2.loading = "lazy";
+    fig.appendChild(im2);
+
+    var body = el("div", "ab-body");
+    body.appendChild(el("h2", "ab-h", opts.heading || "Об авторе"));
+    body.appendChild(el("p", "ab-lead", BIO.lead));
+    BIO.paras.forEach(function(t){ body.appendChild(el("p", "ab-p", t)); });
+
+    var links = el("div", "ab-links");
+    BIO.links.forEach(function(l){
+      var a = document.createElement("a");
+      a.href = l.href;
+      a.className = "ab-btn " + l.kind;
+      a.textContent = l.label;
+      if(l.href.indexOf("http") === 0){ a.target = "_blank"; a.rel = "noopener"; }
+      links.appendChild(a);
+    });
+    body.appendChild(links);
+
+    host.appendChild(fig);
+    host.appendChild(body);
+  }
+
+  var HT = [
+    im("ht-01","video","Кадр из конкурсного ролика · 66 с","Ролик"),
+    im("ht-02","poster","Сертификат финалиста","Награда")
+  ];
+
+  var ET = [];
+  for(var e=1;e<=10;e++) ET.push(im("et-"+(e<10?"0":"")+e,"render",""));
+  ET[0].c = "Павильон в сумерках, общий вид";
+
+  var BA = [
+    im("ba-01","poster","Horizon 2051 — контекст"),
+    im("ba-02","poster",""),
+    im("ba-03","poster",""),
+    im("ba-04","poster",""),
+    im("ba-05","poster","Scale IV — суперблоки и AI-управление"),
+    im("ba-06","poster",""),
+    im("ba-07","poster",""),
+    im("ba-08","poster","")
+  ];
+
+  var EC = [
+    im("ec-01","render","Арочные формы и парящая скульптура над водой"),
+    im("ec-02","render","Колоннада с аватарами и кристаллическим облаком"),
+    im("ec-03","render","Изометрия сцены целиком"),
+    im("ec-04","poster","Афиша Metaverse Architecture Biennale, 2023")
+  ];
+
+  var PROJECTS = [
+    {id:"bertha", code:"PRJ–01", num:"01", t:"Bertha Village, Кипр", meta:"жилой комплекс для пожилых людей · Кипр",
+     group:"practice", cat:"built", tag:"построено", catLabel:"построено · жилой комплекс",
+     lead:true, leadNote:"последняя работа",
+     desc:"<b>Bertha Village — жилой комплекс для пожилых людей на Кипре.</b> Проект интегрирован в естественный рельеф участка и построен на принципах приватности, доступности и визуальной связи с ландшафтом. В рамках проекта я занимался разработкой концепции и рабочей документации жилых модулей, включая планировочные решения, фасады и адаптацию зданий к сложному рельефу.",
+     imgs:BE},
+    {id:"clinic", code:"PRJ–02", num:"02", t:"Поликлиника, Новосибирск", meta:"медицинский центр · 4 эт. · 20 м",
+     group:"practice", cat:"built", tag:"проект", catLabel:"медицинский центр",
+     desc:"Четырёхэтажное здание медицинского центра высотой 20 метров без чердака, разработанное с учётом строгих градостроительных норм и стандартов. Концепция включает кабинеты врачей различных специализаций, лаборатории, травматологическое и хирургическое отделения, а также прочие медицинские и административные помещения, и отражает необходимость соблюдения отступов от границ участка и требований к безопасности. Архитектурное решение ориентировано на психологический комфорт посетителей и интеграцию с окружающей застройкой: простые, но выразительные формы фасадов, современные материалы и продуманная цветовая схема, гармонирующая с ландшафтом города Новосибирска.",
+     imgs:CL},
+    {id:"school", code:"PRJ–03", num:"03", t:"Школа на 22 класса", meta:"образование · 3 эт. · 18 м",
+     group:"practice", cat:"built", tag:"проект", catLabel:"образование",
+     desc:"Трёхэтажное образовательное учреждение высотой 18 метров, спроектированное с учётом уникальных градостроительных требований территории. Здание предлагает широкий спектр учебных пространств: специализированные классы, научные лаборатории, спортивные и актовые залы, а также вспомогательные и управленческие помещения. Архитектурная концепция направлена на создание комфортной обстановки для учащихся и гармоничное сочетание со средой окружающей застройки — через продуманную планировочную структуру, экспрессивные архитектурные формы, современные строительные материалы и оттенки, выбранные для фасада.",
+     imgs:SC},
+
+    {id:"biota", code:"PRJ–04", num:"04", t:"Biota", meta:"AIxBiomimicry",
+     group:"competition", cat:"competition", tag:"конкурс · AIxBiomimicry", catLabel:"конкурс · AIxBiomimicry",
+     desc:"В проекте «Biota» сочетаются три ключевых принципа: кристаллическая форма, вдохновлённая костной структурой птиц, обеспечивает лёгкость и грацию здания; внешний фасад, напоминающий медузу, гарантирует естественный свет и прозрачность; внутреннее пространство, оживлённое концепцией биолюминесценции, создаёт впечатление погружения в светящийся подводный мир. Комплекс — воплощение принципов биомимикрии — включает музей природы и мультимедийный центр, позволяющий посетителям ощутить красоту и разнообразие природных экосистем.",
+     imgs:BI},
+    {id:"barcelona", code:"PRJ–05", num:"05", t:"Barcelona 2051", meta:"исследование · 8 планшетов",
+     group:"competition", cat:"competition", tag:"исследование", catLabel:"исследование",
+     desc:"Аналитическое исследование адаптации Барселоны к середине века: климат, суперблоки и управление городом через цифрового двойника. Разбор построен по масштабам — от тела человека до планетарного уровня.",
+     imgs:BA},
+    {id:"regen", code:"PRJ–06", num:"06", t:"EcoSynergy Haven", meta:"конкурс SPACE10 · Regenerative Futures",
+     group:"competition", cat:"competition", tag:"конкурс · SPACE10", catLabel:"конкурс · SPACE10",
+     desc:"Этот конкурсный проект представляет собой визию симбиотического города будущего, где дома и общественные пространства, созданные из экологически чистых материалов, используют источники возобновляемой энергии, технологии экономии воды и системы управления отходами.<br><br>Обширные зелёные зоны, гидропоника и вертикальное озеленение обеспечивают продовольственную независимость, в то время как общее использование ресурсов, обмен данными и технологиями способствуют развитию сообщества и культурного разнообразия.<br><br>Этот проект исследует возможности устойчивого городского развития, представляя модель города, который может обеспечить высокое качество жизни при минимальном воздействии на окружающую среду.",
+     imgs:RF},
+    {id:"eclipse", code:"PRJ–07", num:"07", t:"Hall of Eclipse", meta:"Metaverse Architecture Biennale",
+     group:"competition", cat:"competition", tag:"конкурс · Metaverse Biennale", catLabel:"конкурс · Metaverse Biennale",
+     desc:"«Hall of Eclipse» — это метафора метавселенных. В мире «Ephemeral Stream» можно погрузиться в медитативный оазис, побродить по библиотеке мыслей и заблудиться в облаке мечтаний. В центральной вселенной, исследуя таинственные пространства среди облаков и гладких форм, каждый завершает своё медитативное путешествие и взаимодействует с этим миром.",
+     imgs:EC},
+    {id:"hetao", code:"PRJ–08", num:"08", t:"Hetao Vision", meta:"конкурс AI-видео · UABBHK 2025",
+     group:"competition", cat:"competition", tag:"финалист", catLabel:"конкурс · финалист",
+     award:true, awardNote:"шортлист",
+     desc:"<b>Hetao Vision: Innovative AI Video Competition</b> — конкурс в рамках Гонконг-Шэньчжэньской биеннале урбанистики и архитектуры 2025 (UABBHK) с темой TECHFORMANCE: архитектура как перформанс в эпоху AI. Организаторы — Hong Kong Institute of Architects Biennale Foundation и Shenzhen Biennale Foundation, жюри из Гонконга и Шэньчжэня.<br><br>Участникам предлагалось средствами AI показать будущее Хэтао — зоны научно-технического сотрудничества Шэньчжэня и Гонконга, построенной на принципе «одна река, два берега».<br><br>Работа вошла в шортлист: сертификат финалиста в категории Open Group. Отобранные ролики публично показывали в Hetao Science and Technology Innovation Centre в феврале 2026 года.",
+     imgs:HT},
+    {id:"archmoscow", code:"PRJ–09", num:"09", t:"DigitalArt ArchMoscow", meta:"конкурс · АРХ Москва",
+     group:"competition", cat:"competition", tag:"конкурс · АРХ Москва", catLabel:"конкурс · АРХ Москва",
+     desc:"Монохромные композиции: бетон, вода и свет в монументальном пространстве.",
+     imgs:AM},
+    {id:"mavridis", code:"PRJ–10", num:"10", t:"Mavridis", meta:"торговый комплекс · для бюро",
+     group:"render", cat:"render", tag:"рендер для бюро", catLabel:"рендер для бюро",
+     desc:"Протяжённый объём со сводчатой галереей и вечерней подсветкой витрин.",
+     imgs:MV},
+    {id:"echo", code:"PRJ–11", num:"11", t:"Эхо Табахмеле", meta:"арт-проект · инсталляции",
+     group:"render", cat:"render", tag:"арт-проект", catLabel:"арт-проект",
+     desc:"«Эхо Табахмеле» — коммерческий арт-проект, вдохновлённый атмосферой Burning Man: коллекция инсталляций и площадок в Табахмеле, созданных для объединения искусства, технологий и сообщества. Цель — показать уникальные идеи каждой инсталляции, подчёркивающие темы возрождения, взаимодействия и экспериментирования, чтобы превратить это пространство в источник вдохновения и творческого обмена.",
+     imgs:ET},
+    {id:"krym", code:"PRJ–12", num:"12", t:"Крым, прибрежный комплекс", meta:"видео · для бюро",
+     group:"render", cat:"render", tag:"рендер для бюро · видео", catLabel:"рендер для бюро · видео",
+     desc:"Жилой комплекс на склоне у моря. Ролик 21 секунда, летний день.",
+     imgs:KR}
+  ];
+
+  var byId = {};
+  PROJECTS.forEach(function(p){ byId[p.id] = p; });
+
+  // ---------- helpers ----------
+  function el(tag, cls, html){
+    var e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(html != null) e.innerHTML = html;
+    return e;
+  }
+  function imgBox(rec, extraCls, altFallback){
+    var box = el("div", "imgph" + (extraCls ? " " + extraCls : ""));
+    var i = document.createElement("img");
+    i.setAttribute("data-kind", rec.k);
+    i.alt = rec.c || altFallback || "";
+    if(rec.k === "video"){ box.appendChild(el("span", "vid-badge", "ВИДЕО")); }
+    i.loading = "lazy";
+    i.src = src(rec.i);
+    box.appendChild(i);
+    return box;
+  }
+  // walk a project's frames as [{name, imgs:[{rec, idx}]}]
+  function seriesOf(p){
+    var out = [], last = null;
+    p.imgs.forEach(function(rec, idx){
+      var name = rec.s || "";
+      if(!last || last.name !== name){ last = {name: name, imgs: []}; out.push(last); }
+      last.imgs.push({rec: rec, idx: idx});
+    });
+    return out;
+  }
+
+
+  var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // scroll reveal
+  var revealObs = null;
+  if(!REDUCED && "IntersectionObserver" in window){
+    revealObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add("in"); revealObs.unobserve(en.target); }
+      });
+    }, {rootMargin:"0px 0px -8% 0px", threshold:0.06});
+  }
+  function reveal(node, delay){
+    if(!revealObs){ return node; }
+    node.classList.add("reveal");
+    if(delay) node.style.transitionDelay = delay + "ms";
+    revealObs.observe(node);
+    return node;
+  }
+
+
+  // ---------- archive timeline with inline expansion ----------
+  var fHero = document.querySelector("[data-f-hero]");
+  if(fHero) fHero.src = src("be-02");
+
+  var fHost = document.querySelector("[data-ftimeline]");
+  PROJECTS.forEach(function(p, i){
+    var set = el("div", "f-rowset");
+
+    var row = el("button", "f-row");
+    row.type = "button";
+    row.setAttribute("aria-expanded", "false");
+    row.appendChild(el("span", "yr", String(i + 1).padStart(2, "0")));
+    var mid = el("span", "ttl", p.t);
+    if(p.lead) mid.appendChild(el("span", "lead-mark", "· " + p.leadNote));
+    if(p.award) mid.appendChild(el("span", "award-mark", "· " + p.awardNote));
+    row.appendChild(mid);
+    row.appendChild(el("span", "sig", p.catLabel + " · " + p.imgs.length));
+
+    var panel = el("div", "f-panel");
+    if(p.desc) panel.appendChild(el("p", "f-desc", p.desc));
+    var mosaic = el("div", "f-mosaic");
+    panel.appendChild(mosaic);
+
+    var filled = false;
+    row.addEventListener("click", function(){
+      var open = panel.getAttribute("data-open") === "true";
+      // one record open at a time keeps the timeline readable
+      fHost.querySelectorAll(".f-panel[data-open='true']").forEach(function(o){
+        o.style.maxHeight = "";
+        o.removeAttribute("data-open");
+        o.parentNode.removeAttribute("data-open");
+        o.parentNode.querySelector(".f-row").setAttribute("aria-expanded", "false");
+      });
+      if(open) return;
+      if(!filled){
+        seriesOf(p).forEach(function(grp){
+          if(grp.name){
+            var h = el("div", "f-series", grp.name);
+            h.appendChild(el("span", "n", String(grp.imgs.length).padStart(2, "0")));
+            mosaic.appendChild(h);
+          }
+          grp.imgs.forEach(function(item){
+            mosaic.appendChild(imgBox(item.rec, null, p.t + " — кадр " + (item.idx + 1)));
+          });
+        });
+        filled = true;
+      }
+      panel.setAttribute("data-open", "true");
+      set.setAttribute("data-open", "true");
+      row.setAttribute("aria-expanded", "true");
+      // pin the measured height so a long record is never cut off by the CSS ceiling
+      var pin = function(){ panel.style.maxHeight = panel.scrollHeight + "px"; };
+      if(window.requestAnimationFrame) window.requestAnimationFrame(pin); else pin();
+    });
+
+    set.appendChild(row);
+    set.appendChild(panel);
+    fHost.appendChild(set);
+  });
+
+  var fWorks = document.querySelector("[data-fworks]");
+  [{id:"bertha", i:"be-01", c:"Bertha Village — мастер-план посёлка"},
+   {id:"bertha2", i:"be-10", c:"Bertha Village — проход между блоками"},
+   {id:"biota", i:"bi-15", c:"Biota — общий вид на фоне города"}].forEach(function(w, wi){
+    var strip = el("section", "f-strip" + (wi % 2 ? " right" : ""));
+    var box = el("div", "imgph");
+    var im2 = document.createElement("img");
+    im2.src = src(w.i);
+    im2.alt = w.c;
+    im2.loading = "lazy";
+    box.appendChild(im2);
+    strip.appendChild(box);
+    var cap = el("div", "cap");
+    cap.appendChild(el("span", null, w.c));
+    strip.appendChild(cap);
+    fWorks.appendChild(reveal(strip, 0));
+  });
+
+
+  aboutBlock(document.querySelector("[data-about]"), {heading: "Об авторе"});
+})();
+</script>
+</body>
+</html>
