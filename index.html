@@ -52,7 +52,6 @@
   .skip:focus{left:8px;top:8px;}
 
   /* ============ ABOUT ============ */
-  /* ============ ABOUT ============ */
   .ab-portrait{flex:none;overflow:hidden;background:#0C0C0A;}
   .ab-portrait img{width:100%;height:100%;object-fit:cover;}
   .ab-body{min-width:0;}
@@ -150,8 +149,38 @@
   .f-mosaic .imgph{grid-column:span 2;aspect-ratio:4/3;background:#141210;}
   .f-mosaic .imgph:nth-child(6n+1){grid-column:span 4;aspect-ratio:16/9;}
   .f-mosaic .imgph img[data-kind="plan"]{background:#F1EEE8;}
-  .f-mosaic .imgph img[data-kind="poster"]{object-position:center 18%;}
+  /* posters carry type — show them whole rather than cropping into the slot */
+  .f-mosaic .imgph img[data-kind="poster"]{object-fit:contain;background:#141210;}
   .f-note{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--stone);padding-bottom:16px;}
+
+  /* every frame opens full screen */
+  .f-thumb{padding:0;border:0;font:inherit;color:inherit;cursor:zoom-in;}
+  .f-light{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;
+    background:rgba(10,9,8,.97);color:var(--paper);}
+  .f-light[data-open="true"]{display:flex;}
+  .lt-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:clamp(11px,1.8vw,18px) clamp(14px,3vw,28px);
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--stone);
+    font-variant-numeric:tabular-nums;}
+  .lt-close{background:none;border:1px solid rgba(241,238,232,.3);color:var(--paper);
+    font:inherit;padding:7px 14px;border-radius:2px;cursor:pointer;}
+  .lt-close:hover{border-color:var(--paper);}
+  .lt-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;
+    justify-content:center;padding:0 clamp(52px,7vw,88px);}
+  .lt-stage img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
+  .lt-stage img[data-kind="plan"]{background:#F1EEE8;}
+  .lt-nav{position:absolute;top:50%;transform:translateY(-50%);
+    width:clamp(38px,4.4vw,50px);height:clamp(38px,4.4vw,50px);border-radius:50%;
+    border:1px solid rgba(241,238,232,.3);background:rgba(10,9,8,.6);color:var(--paper);
+    font-size:20px;line-height:1;cursor:pointer;}
+  .lt-nav:hover{background:var(--brick);border-color:var(--brick);}
+  .lt-prev{left:clamp(8px,1.6vw,20px);}
+  .lt-next{right:clamp(8px,1.6vw,20px);}
+  .lt-cap{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;
+    padding:clamp(11px,1.8vw,18px) clamp(14px,3vw,28px) clamp(16px,2.6vw,26px);}
+  .lt-series{font-family:"Familjen Grotesk",sans-serif;font-weight:600;font-size:14px;}
+  .lt-text{font-size:14px;color:#B9AFA0;max-width:70ch;}
+  body.locked{overflow:hidden;}
 
   .f-bio{padding:clamp(56px,9vw,132px) clamp(16px,4vw,48px);max-width:1400px;margin:0 auto;}
   .f-statement{font-family:"Onest",system-ui,sans-serif;font-weight:400;
@@ -164,11 +193,53 @@
 
   .f-strip{position:relative;min-height:62dvh;overflow:hidden;background:var(--ink);}
   .f-strip .imgph{position:absolute;inset:0;}
-  .f-strip .cap{position:relative;z-index:2;height:100%;display:flex;align-items:flex-end;
+  /* the caption sits over the whole strip, so let clicks reach the frame under it */
+  .f-strip .cap{pointer-events:none;position:relative;z-index:2;height:100%;display:flex;align-items:flex-end;
     padding:clamp(20px,4vw,52px);}
   .f-strip.right .cap{justify-content:flex-end;text-align:right;}
-  .f-strip .cap span{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.05em;
+  .f-strip .cap span{pointer-events:auto;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.05em;
     color:var(--paper);background:rgba(10,9,8,.5);padding:6px 10px;}
+
+  /* résumé — the record behind the archive, on the same off-black ground */
+  .f-resume{background:var(--ink);color:var(--paper);
+    padding:clamp(44px,7vw,104px) clamp(16px,4vw,48px) clamp(38px,6vw,84px);}
+  .rs-in{max-width:1400px;margin:0 auto;}
+  .rs-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+    gap:16px 26px;border-bottom:1px solid rgba(241,238,232,.22);padding-bottom:clamp(14px,2vw,22px);}
+  .rs-head h2{font-family:"Onest",system-ui,sans-serif;font-weight:300;margin:0;
+    font-size:clamp(34px,6.4vw,88px);line-height:.9;letter-spacing:-0.022em;}
+  .rs-dl{display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+    background:var(--brick);color:var(--paper);font-weight:600;font-size:13.5px;
+    padding:11px 18px;border-radius:2px;border:1px solid var(--brick);}
+  .rs-dl:hover{background:var(--brick-deep);border-color:var(--brick-deep);}
+  .rs-lede{margin:clamp(14px,2vw,20px) 0 clamp(26px,4vw,46px);color:#C4BBAE;
+    font-size:clamp(15px,1.6vw,18px);line-height:1.6;max-width:60ch;text-wrap:pretty;}
+  .rs-lede b{color:var(--paper);font-weight:600;}
+  .rs-cols{display:grid;grid-template-columns:1fr minmax(220px,300px);gap:clamp(26px,5vw,72px);}
+  .rs-h3{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--stone);margin:0 0 14px;font-weight:400;}
+  .rs-jobs{list-style:none;margin:0;padding:0;}
+  .rs-job{display:grid;grid-template-columns:minmax(120px,168px) 1fr;gap:6px clamp(14px,2.6vw,34px);
+    padding:clamp(13px,1.8vw,20px) 0;border-top:1px solid rgba(241,238,232,.13);}
+  .rs-job:first-child{border-top:0;padding-top:0;}
+  .rs-when{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--stone);
+    line-height:1.5;font-variant-numeric:tabular-nums;}
+  .rs-when b{display:block;color:#C4BBAE;font-weight:400;}
+  .rs-role{margin:0;font-size:clamp(15px,1.7vw,18px);line-height:1.3;}
+  .rs-org{color:var(--brick);}
+  .rs-what{margin:6px 0 0;font-size:14px;line-height:1.6;color:#B9AFA0;max-width:70ch;text-wrap:pretty;}
+  .rs-side section + section{margin-top:clamp(24px,3.4vw,38px);}
+  .rs-item{padding:9px 0;border-top:1px solid rgba(241,238,232,.13);font-size:14px;line-height:1.5;}
+  .rs-item:first-of-type{border-top:0;}
+  .rs-item span{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;
+    color:var(--stone);margin-bottom:3px;}
+  .rs-item a{color:var(--brick);text-decoration:none;border-bottom:1px solid rgba(173,94,47,.5);}
+  .rs-item a:hover{border-bottom-color:var(--brick);}
+  .rs-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .rs-tags li{list-style:none;font-size:12.5px;padding:5px 10px;border-radius:2px;
+    border:1px solid rgba(241,238,232,.2);color:#C4BBAE;}
+  @media (max-width:900px){.rs-cols{grid-template-columns:1fr;}}
+  @media (max-width:560px){.rs-job{grid-template-columns:1fr;}}
 
   .f-footer{background:var(--brick-deep);color:var(--paper);padding:clamp(46px,7vw,96px) clamp(16px,4vw,48px);}
   .f-footer .fw{font-family:"Onest",system-ui,sans-serif;font-weight:300;font-size:clamp(34px,7vw,96px);
@@ -198,6 +269,7 @@
       <a href="#f-works">Работы</a>
       <a href="mailto:makvanser@gmail.com">Связаться</a>
       <a href="#f-about">Об авторе</a>
+      <a href="#f-resume">Резюме</a>
     </nav>
     <h1 class="f-name f-name-bottom">Макогон</h1>
   </header>
@@ -215,6 +287,168 @@
   <div id="f-works" data-fworks></div>
   <div class="f-about" id="f-about" data-about="f"></div>
 
+  <section class="f-resume" id="f-resume">
+    <div class="rs-in">
+      <div class="rs-head">
+        <h2>Резюме</h2>
+        <a class="rs-dl" href="assets/resume-ivan-makogon.pdf" download="Резюме — Иван Макогон, ведущий архитектор.pdf">Скачать PDF ↓</a>
+      </div>
+
+      <p class="rs-lede"><b>Ведущий архитектор, 15 лет опыта.</b> Тбилиси, работаю удалённо,
+        готов к редким командировкам. От проектной и рабочей документации до концепций,
+        визуализации и собственных инструментов на базе ИИ.</p>
+
+      <div class="rs-cols">
+        <div>
+          <h3 class="rs-h3">Опыт работы</h3>
+          <ol class="rs-jobs">
+            <li class="rs-job">
+              <div class="rs-when">январь 2025 — <b>настоящее время</b></div>
+              <div>
+                <p class="rs-role">Главный архитектор, <span class="rs-org">Lursman Architecture and Design</span>, Тбилиси</p>
+                <p class="rs-what">Концепция и рабочая документация жилых модулей Bertha Village, Кипр:
+                  типология жилых единиц, планировки, разрезы и фасады, конструктивные узлы, фасадные
+                  и кровельные решения, доступная среда, интерьеры. Координация с конструкторами и MEP,
+                  генплан и благоустройство, выпуск BIM/IFC-документации.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">июнь 2023 — май 2024<b>1 год</b></div>
+              <div>
+                <p class="rs-role">Ведущий архитектор, <span class="rs-org">Zak Developed</span></p>
+                <p class="rs-what">Разработка рабочей документации.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">июнь 2022 — май 2023<b>1 год</b></div>
+              <div>
+                <p class="rs-role">Ведущий архитектор, <span class="rs-org">Futura Architects</span></p>
+                <p class="rs-what">Рабочая документация ЖК «NEWПИТЕР» для ЛСР.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">февраль 2021 — февраль 2022<b>1 год</b></div>
+              <div>
+                <p class="rs-role">Ведущий архитектор, <span class="rs-org">ГЭМ</span></p>
+                <p class="rs-what">Проектная документация (АР, ОДИ) и рабочая документация,
+                  планировочные решения, схемы, спецификации и ведомости, архитектурная визуализация.
+                  Взаимодействие с заказчиком и смежными разделами.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">февраль 2020 — февраль 2021<b>1 год</b></div>
+              <div>
+                <p class="rs-role">Ведущий архитектор, <span class="rs-org">Балтинвест Проект</span></p>
+                <p class="rs-what">Проектная документация (АР, ОДИ, ПЗУ), рабочая документация,
+                  планировочные решения, визуализация.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">март 2017 — июль 2018<b>1 год 5 месяцев</b></div>
+              <div>
+                <p class="rs-role">Ведущий архитектор, <span class="rs-org">AAG</span>, Санкт-Петербург</p>
+                <p class="rs-what">Проектная документация (АР, ОДИ, ПЗУ, ТБЭО), рабочая документация,
+                  планировочные решения, визуализация.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">январь 2016 — январь 2017<b>1 год</b></div>
+              <div>
+                <p class="rs-role">Ведущий архитектор, <span class="rs-org">Европроект Групп</span>, Санкт-Петербург</p>
+                <p class="rs-what">Проектная и рабочая документация (АР, ОДИ, ПЗУ, ТБЭО),
+                  авторский надзор и акты скрытых работ, визуализация.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">апрель 2013 — май 2015<b>2 года 2 месяца</b></div>
+              <div>
+                <p class="rs-role">Архитектор, <span class="rs-org">Архитектурная мастерская Цехомского В. В.</span>, Санкт-Петербург</p>
+                <p class="rs-what">Проектная документация (АР, ОДИ, ПЗУ), корректировка смежных разделов,
+                  визуализация. Участие в проектах: ЖК «Старопетергофский», ЖК «SAND»,
+                  ЖК «Рублёвские предместья», ЖК «На Заречной» в Парголово, многоквартирный дом
+                  в Красном Селе, коттеджный посёлок в Лисьем Носу.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">июль 2012 — февраль 2013<b>8 месяцев</b></div>
+              <div>
+                <p class="rs-role">Архитектор, <span class="rs-org">Архитектурная мастерская Трофимовых</span>, Санкт-Петербург</p>
+                <p class="rs-what">Проектная документация разделов АИ и АР для ЭКСПОФОРУМ;
+                  соответствие интерьерных решений нормативам и экологическим стандартам.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">декабрь 2011 — март 2012<b>4 месяца</b></div>
+              <div>
+                <p class="rs-role">Архитектор, <span class="rs-org">Сбербанк России</span>, сектор организации строительства, Иркутск</p>
+                <p class="rs-what">Эксперт со стороны заказчика.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">май 2011 — сентябрь 2011<b>5 месяцев</b></div>
+              <div>
+                <p class="rs-role">Архитектор по договору, <span class="rs-org">Сибирский проектный институт</span>, Иркутск</p>
+                <p class="rs-what">Реконструкция 130-го квартала: рабочие чертежи АР деревянного дома —
+                  вновь возводимого памятника деревянной архитектуры под мастерскую художника.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">август 2010 — апрель 2011<b>9 месяцев</b></div>
+              <div>
+                <p class="rs-role">Архитектор, <span class="rs-org">АрхПроект</span>, Иркутск</p>
+                <p class="rs-what">Обмеры, обмерочные и рабочие чертежи по реставрации.
+                  Диплом II степени в конкурсе по ландшафтному проектированию «Знаки препинания»
+                  к 350-летию Иркутска.</p>
+              </div>
+            </li>
+            <li class="rs-job">
+              <div class="rs-when">июнь 2006 — декабрь 2008<b>2 года 7 месяцев</b></div>
+              <div>
+                <p class="rs-role">Архитектор, <span class="rs-org">Арх-центр</span>, Иркутск</p>
+                <p class="rs-what">Начало карьеры. Объёмно-планировочные решения ТРЦ «Фортуна City Mall».</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="rs-side">
+          <section>
+            <h3 class="rs-h3">Образование</h3>
+            <div class="rs-item"><span>2015 · магистратура</span>
+              Университет ИТМО, Санкт-Петербург — Design of Urban Ecosystems</div>
+            <div class="rs-item"><span>2010 · специалитет</span>
+              Иркутский государственный технический университет — архитектурный факультет, архитектор</div>
+            <div class="rs-item"><span>2017 · курс</span>
+              Информационное моделирование зданий, Stepik / Academia BIM — специалист Revit</div>
+          </section>
+
+          <section>
+            <h3 class="rs-h3">Инструменты</h3>
+            <ul class="rs-tags">
+              <li>Revit</li><li>ArchiCAD</li><li>AutoCAD</li><li>Rhinoceros 3D</li>
+              <li>Grasshopper</li><li>Twinmotion</li><li>Photoshop</li><li>CorelDRAW</li>
+              <li>Midjourney</li><li>Stable Diffusion + ControlNet</li>
+            </ul>
+            <p class="rs-what">Grasshopper — GIS-аналитика, связка с Revit и ArchiCAD,
+              генеративный дизайн, расчёт инсоляции.</p>
+          </section>
+
+          <section>
+            <h3 class="rs-h3">Языки</h3>
+            <div class="rs-item">Русский — родной</div>
+            <div class="rs-item">Английский — B1</div>
+          </section>
+
+          <section>
+            <h3 class="rs-h3">Ещё</h3>
+            <div class="rs-item"><span>рабочая документация</span>
+              <a href="https://drive.google.com/file/d/0B5-ZMFJZYugwc1cxUThyaDdJZnM/view?usp=sharing&amp;resourcekey=0-KhuSnx18aVVrD1OALwC0-Q" target="_blank" rel="noopener">Отдельное портфолио РД →</a></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="f-footer">
     <p class="fw">Открыт к работе</p>
     <div class="fl">
@@ -225,6 +459,23 @@
     </div>
   </footer>
 </main>
+
+<div class="f-light" data-light role="dialog" aria-modal="true" aria-label="Просмотр кадра">
+  <div class="lt-bar">
+    <span data-lt-idx></span>
+    <button class="lt-close" type="button" data-lt-close>Закрыть ✕</button>
+  </div>
+  <div class="lt-stage" data-lt-stage>
+    <button class="lt-nav lt-prev" type="button" data-lt-prev aria-label="Предыдущий кадр">‹</button>
+    <img data-lt-img alt="">
+    <button class="lt-nav lt-next" type="button" data-lt-next aria-label="Следующий кадр">›</button>
+  </div>
+  <div class="lt-cap">
+    <span class="lt-series" data-lt-series></span>
+    <span class="lt-text" data-lt-text></span>
+  </div>
+</div>
+
 <div class="grain" aria-hidden="true"></div>
 <script>
 (function(){
@@ -268,11 +519,11 @@
   ];
 
   var BE = [
-    im("be-01","render","Мастер-план посёлка, дневной вид","Мастер-план"),
-    im("be-02","render","Жилые объёмы на опорах, сумерки","Мастер-план"),
-    im("be-03","render","","Мастер-план"),
-    im("be-04","render","","Мастер-план"),
-    im("be-05","render","","Мастер-план"),
+    im("be-01","render","Первый вариант, общий вид","Первые варианты кластеров"),
+    im("be-02","render","Жилые объёмы на опорах, сумерки","Первые варианты кластеров"),
+    im("be-03","render","","Первые варианты кластеров"),
+    im("be-04","render","","Первые варианты кластеров"),
+    im("be-05","render","","Первые варианты кластеров"),
     im("be-06","render","Таунхаусы, нумерация из кортена","Жилые кластеры"),
     im("be-07","render","","Жилые кластеры"),
     im("be-08","render","","Жилые кластеры"),
@@ -379,10 +630,10 @@
   ];
 
   var EC = [
+    im("ec-04","poster","Афиша Metaverse Architecture Biennale, 2023"),
     im("ec-01","render","Арочные формы и парящая скульптура над водой"),
     im("ec-02","render","Колоннада с аватарами и кристаллическим облаком"),
-    im("ec-03","render","Изометрия сцены целиком"),
-    im("ec-04","poster","Афиша Metaverse Architecture Biennale, 2023")
+    im("ec-03","render","Изометрия сцены целиком")
   ];
 
   var PROJECTS = [
@@ -429,8 +680,8 @@
      group:"render", cat:"render", tag:"рендер для бюро", catLabel:"рендер для бюро",
      desc:"Протяжённый объём со сводчатой галереей и вечерней подсветкой витрин.",
      imgs:MV},
-    {id:"echo", code:"PRJ–11", num:"11", t:"Эхо Табахмеле", meta:"арт-проект · инсталляции",
-     group:"render", cat:"render", tag:"арт-проект", catLabel:"арт-проект",
+    {id:"echo", code:"PRJ–11", num:"11", t:"Эхо Табахмеле", meta:"рендер для бюро · инсталляции",
+     group:"render", cat:"render", tag:"рендер для бюро", catLabel:"рендер для бюро",
      desc:"«Эхо Табахмеле» — коммерческий арт-проект, вдохновлённый атмосферой Burning Man: коллекция инсталляций и площадок в Табахмеле, созданных для объединения искусства, технологий и сообщества. Цель — показать уникальные идеи каждой инсталляции, подчёркивающие темы возрождения, взаимодействия и экспериментирования, чтобы превратить это пространство в источник вдохновения и творческого обмена.",
      imgs:ET},
     {id:"krym", code:"PRJ–12", num:"12", t:"Крым, прибрежный комплекс", meta:"видео · для бюро",
@@ -448,17 +699,6 @@
     if(cls) e.className = cls;
     if(html != null) e.innerHTML = html;
     return e;
-  }
-  function imgBox(rec, extraCls, altFallback){
-    var box = el("div", "imgph" + (extraCls ? " " + extraCls : ""));
-    var i = document.createElement("img");
-    i.setAttribute("data-kind", rec.k);
-    i.alt = rec.c || altFallback || "";
-    if(rec.k === "video"){ box.appendChild(el("span", "vid-badge", "ВИДЕО")); }
-    i.loading = "lazy";
-    i.src = src(rec.i);
-    box.appendChild(i);
-    return box;
   }
   // walk a project's frames as [{name, imgs:[{rec, idx}]}]
   function seriesOf(p){
@@ -491,6 +731,92 @@
     return node;
   }
 
+
+  // ---------- fullscreen viewer ----------
+  var lt = document.querySelector("[data-light]");
+  var ltImg = lt.querySelector("[data-lt-img]");
+  var ltIdx = lt.querySelector("[data-lt-idx]");
+  var ltSeries = lt.querySelector("[data-lt-series]");
+  var ltText = lt.querySelector("[data-lt-text]");
+  var ltClose = lt.querySelector("[data-lt-close]");
+  var ltState = {p: null, i: 0, from: null};
+
+  function pad(n){ return String(n).padStart(2, "0"); }
+
+  function ltPaint(){
+    var p = ltState.p, rec = p.imgs[ltState.i];
+    ltImg.src = src(rec.i);
+    ltImg.setAttribute("data-kind", rec.k);
+    ltImg.alt = rec.c || (p.t + " — кадр " + (ltState.i + 1));
+    ltIdx.textContent = p.t + " · " + pad(ltState.i + 1) + " / " + pad(p.imgs.length);
+    ltSeries.textContent = rec.s || "";
+    ltText.textContent = rec.c || "";
+    // one record is rarely browsed twice, but the neighbours are
+    var nx = p.imgs[(ltState.i + 1) % p.imgs.length];
+    if(nx) { var pre = new Image(); pre.src = src(nx.i); }
+  }
+
+  function ltOpen(p, i, from){
+    ltState.p = p; ltState.i = i; ltState.from = from || document.activeElement;
+    ltPaint();
+    lt.setAttribute("data-open", "true");
+    document.body.classList.add("locked");
+    ltClose.focus();
+  }
+
+  function ltShut(){
+    lt.removeAttribute("data-open");
+    document.body.classList.remove("locked");
+    if(ltState.from && ltState.from.focus) ltState.from.focus();
+  }
+
+  function ltStep(d){
+    var n = ltState.p.imgs.length;
+    ltState.i = (ltState.i + d + n) % n;
+    ltPaint();
+  }
+
+  ltClose.addEventListener("click", ltShut);
+  lt.querySelector("[data-lt-prev]").addEventListener("click", function(){ ltStep(-1); });
+  lt.querySelector("[data-lt-next]").addEventListener("click", function(){ ltStep(1); });
+  // the ground around the picture closes; the picture itself does not
+  lt.querySelector("[data-lt-stage]").addEventListener("click", function(e){
+    if(e.target === this) ltShut();
+  });
+
+  document.addEventListener("keydown", function(e){
+    if(lt.getAttribute("data-open") !== "true") return;
+    if(e.key === "Escape") ltShut();
+    else if(e.key === "ArrowLeft") ltStep(-1);
+    else if(e.key === "ArrowRight") ltStep(1);
+  });
+
+  // swipe through a record on touch
+  var swX = 0, swY = 0;
+  lt.addEventListener("touchstart", function(e){
+    swX = e.changedTouches[0].clientX; swY = e.changedTouches[0].clientY;
+  }, {passive: true});
+  lt.addEventListener("touchend", function(e){
+    var dx = e.changedTouches[0].clientX - swX, dy = e.changedTouches[0].clientY - swY;
+    if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) ltStep(dx < 0 ? 1 : -1);
+  }, {passive: true});
+
+  // a mosaic frame is a button into the viewer
+  function thumb(p, rec, idx){
+    var b = el("button", "imgph f-thumb");
+    b.type = "button";
+    b.setAttribute("aria-label",
+      "Открыть кадр " + (idx + 1) + " из " + p.imgs.length + " во весь экран");
+    if(rec.k === "video") b.appendChild(el("span", "vid-badge", "ВИДЕО"));
+    var i = document.createElement("img");
+    i.setAttribute("data-kind", rec.k);
+    i.alt = rec.c || (p.t + " — кадр " + (idx + 1));
+    i.loading = "lazy";
+    i.src = src(rec.i);
+    b.appendChild(i);
+    b.addEventListener("click", function(){ ltOpen(p, idx, b); });
+    return b;
+  }
 
   // ---------- archive timeline with inline expansion ----------
   var fHero = document.querySelector("[data-f-hero]");
@@ -534,7 +860,7 @@
             mosaic.appendChild(h);
           }
           grp.imgs.forEach(function(item){
-            mosaic.appendChild(imgBox(item.rec, null, p.t + " — кадр " + (item.idx + 1)));
+            mosaic.appendChild(thumb(p, item.rec, item.idx));
           });
         });
         filled = true;
@@ -553,17 +879,25 @@
   });
 
   var fWorks = document.querySelector("[data-fworks]");
-  [{id:"bertha", i:"be-01", c:"Bertha Village — мастер-план посёлка"},
-   {id:"bertha2", i:"be-10", c:"Bertha Village — проход между блоками"},
-   {id:"biota", i:"bi-15", c:"Biota — общий вид на фоне города"}].forEach(function(w, wi){
+  [{pid:"bertha", i:"be-01", c:"Bertha Village — первый вариант кластеров"},
+   {pid:"bertha", i:"be-10", c:"Bertha Village — проход между блоками"},
+   {pid:"biota", i:"bi-15", c:"Biota — общий вид на фоне города"}].forEach(function(w, wi){
     var strip = el("section", "f-strip" + (wi % 2 ? " right" : ""));
-    var box = el("div", "imgph");
+    var p = byId[w.pid];
+    var at = 0;
+    p.imgs.forEach(function(rec, ri){ if(rec.i === w.i) at = ri; });
+
+    var box = el("button", "imgph f-thumb");
+    box.type = "button";
+    box.setAttribute("aria-label", "Открыть кадр во весь экран: " + w.c);
     var im2 = document.createElement("img");
     im2.src = src(w.i);
     im2.alt = w.c;
     im2.loading = "lazy";
     box.appendChild(im2);
+    box.addEventListener("click", function(){ ltOpen(p, at, box); });
     strip.appendChild(box);
+
     var cap = el("div", "cap");
     cap.appendChild(el("span", null, w.c));
     strip.appendChild(cap);
