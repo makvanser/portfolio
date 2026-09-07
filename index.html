@@ -154,8 +154,34 @@
   .f-mosaic .imgph img[data-kind="plan"]{background:#F1EEE8;}
   /* posters and album slides carry type — show them whole rather than cropping */
   .f-mosaic .imgph img[data-kind="poster"],
-  .f-mosaic .imgph img[data-kind="slide"]{object-fit:contain;background:#141210;}
-  .f-mosaic .imgph:has(img[data-kind="slide"]){aspect-ratio:16/9;}
+
+  /* carousel — a slide album pages instead of spreading, every frame one size */
+  .cs{padding:16px 0 clamp(18px,3vw,32px);}
+  .cs-stage{position:relative;aspect-ratio:16/9;background:#141210;overflow:hidden;}
+  .cs-open{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;
+    background:none;cursor:zoom-in;}
+  .cs-open img{width:100%;height:100%;object-fit:contain;display:block;}
+  .cs-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+    width:clamp(34px,3.4vw,46px);height:clamp(34px,3.4vw,46px);border-radius:50%;
+    border:1px solid rgba(241,238,232,.32);background:rgba(10,9,8,.55);
+    color:var(--paper);font-size:19px;line-height:1;cursor:pointer;}
+  .cs-nav:hover{background:var(--brick);border-color:var(--brick);}
+  .cs-prev{left:clamp(8px,1.2vw,16px);}
+  .cs-next{right:clamp(8px,1.2vw,16px);}
+  .cs-bar{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:12px 0 10px;}
+  .cs-idx{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--brick);
+    font-variant-numeric:tabular-nums;}
+  .cs-series{font-weight:600;font-size:14px;color:var(--paper);}
+  .cs-cap{font-size:14px;color:#B9AFA0;text-wrap:pretty;}
+  .cs-ticks{display:flex;gap:3px;}
+  .cs-ticks button{flex:1;height:3px;min-width:4px;padding:0;border:0;cursor:pointer;
+    background:rgba(241,238,232,.2);}
+  .cs-ticks button:hover{background:rgba(241,238,232,.55);}
+  .cs-ticks button[aria-current="true"]{background:var(--brick);}
+  @media (prefers-reduced-motion: no-preference){
+    .cs-nav{transition:background .2s,border-color .2s;}
+    .cs-ticks button{transition:background .2s;}
+  }
   .f-note{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--stone);padding-bottom:16px;}
 
   /* every frame opens full screen */
@@ -691,7 +717,7 @@
 
     {id:"safa", code:"PRJ–13", num:"13", t:"Safa Climate Commons, Дубай", meta:"конкурс Dubai Municipality · парк 15 000 м²",
      group:"competition", cat:"competition", tag:"конкурс · Dubai AI Park", catLabel:"конкурс · Dubai AI Park",
-     co:true, coNote:"в соавторстве",
+     co:true, coNote:"в соавторстве", carousel:true,
      desc:"<b>Safa Climate Commons</b> — конкурсное предложение для Al Safa Park 2 в Дубае: районный парк площадью 15 000 м², концепция и предварительный проект. Dubai Municipality AI Park Design Challenge — конкурс муниципалитета Дубая, где искусственный интеллект нужно было применить как вспомогательный инструмент анализа и проверки решений, а не как замену проектировщику. Призовой фонд 200 000 дирхамов; первое место получает возможность довести проект до пилотного парка.<br><br>Парк собран как последовательность связанных микроклиматов. Его держат две системы: Porous Shade Network — проницаемая сеть затенения, которая смягчает солнце, не закрывая ландшафт, и Recovery Loop — непрерывный безбарьерный маршрут, связывающий пальмовый оазис, заглублённые дворы, приподнятые деки, лужайки и общественные зоны от раннего утра до вечера. Перфорированные экраны по мотивам машрабии фильтруют свет, сохраняют просматриваемость и дают меняющийся рисунок тени.<br><br>В основе — климатический анализ: инсоляция, ветер и тепловой комфорт, разобранный в четырёх сочетаниях солнца, тени и ветрозащиты. Парк затенён неравномерно: каждое пространство получает свой баланс кроны, растительности и открытости в зависимости от экспозиции, функции и времени использования.<br><br>ИИ применялся на исследовательской части: генерация альтернативных планировочных и объёмных решений, сверка их с границами участка, геометрией мастер-плана и данными симуляций. В проект попадали только варианты, прошедшие эту проверку — итоговая геометрия и все архитектурные решения приняты человеком.<br><br>Работа выполнена <b>в соавторстве с Полиной Носиковой</b>. Результаты конкурса на момент публикации не объявлены.",
      imgs:SF},
     {id:"biota", code:"PRJ–04", num:"04", t:"Biota", meta:"AIxBiomimicry",
@@ -782,7 +808,7 @@
   var ltSeries = lt.querySelector("[data-lt-series]");
   var ltText = lt.querySelector("[data-lt-text]");
   var ltClose = lt.querySelector("[data-lt-close]");
-  var ltState = {p: null, i: 0, from: null};
+  var ltState = {p: null, i: 0, from: null, sync: null};
 
   function pad(n){ return String(n).padStart(2, "0"); }
 
@@ -799,8 +825,9 @@
     if(nx) { var pre = new Image(); pre.src = src(nx.i); }
   }
 
-  function ltOpen(p, i, from){
+  function ltOpen(p, i, from, sync){
     ltState.p = p; ltState.i = i; ltState.from = from || document.activeElement;
+    ltState.sync = sync || null;
     ltPaint();
     lt.setAttribute("data-open", "true");
     document.body.classList.add("locked");
@@ -811,6 +838,8 @@
     lt.removeAttribute("data-open");
     document.body.classList.remove("locked");
     if(ltState.from && ltState.from.focus) ltState.from.focus();
+    // leave the caller showing whatever frame the viewer ended on
+    if(ltState.sync) ltState.sync(ltState.i);
   }
 
   function ltStep(d){
@@ -861,6 +890,88 @@
     return b;
   }
 
+  // a slide album: one frame at a time, every frame the same size
+  function carousel(p){
+    var cur = 0;
+    var wrap = el("div", "cs");
+
+    var stage = el("div", "cs-stage");
+    var open = el("button", "cs-open");
+    open.type = "button";
+    var img = document.createElement("img");
+    open.appendChild(img);
+    stage.appendChild(open);
+
+    var prev = el("button", "cs-nav cs-prev", "‹");
+    var next = el("button", "cs-nav cs-next", "›");
+    prev.type = "button"; next.type = "button";
+    prev.setAttribute("aria-label", "Предыдущий слайд");
+    next.setAttribute("aria-label", "Следующий слайд");
+    stage.appendChild(prev);
+    stage.appendChild(next);
+    wrap.appendChild(stage);
+
+    var bar = el("div", "cs-bar");
+    var idx = el("span", "cs-idx");
+    idx.setAttribute("aria-live", "polite");
+    var series = el("span", "cs-series");
+    var cap = el("span", "cs-cap");
+    bar.appendChild(idx); bar.appendChild(series); bar.appendChild(cap);
+    wrap.appendChild(bar);
+
+    // one tick per slide: shows position in the album and jumps straight to it
+    var ticks = el("div", "cs-ticks");
+    var tickBtns = p.imgs.map(function(rec, i){
+      var t = el("button");
+      t.type = "button";
+      t.setAttribute("aria-label", "Слайд " + (i + 1) + (rec.s ? " · " + rec.s : ""));
+      t.addEventListener("click", function(){ go(i); });
+      ticks.appendChild(t);
+      return t;
+    });
+    wrap.appendChild(ticks);
+
+    function paint(){
+      var rec = p.imgs[cur];
+      img.src = src(rec.i);
+      img.setAttribute("data-kind", rec.k);
+      img.alt = rec.c || (p.t + " — слайд " + (cur + 1));
+      idx.textContent = pad(cur + 1) + " / " + pad(p.imgs.length);
+      series.textContent = rec.s || "";
+      cap.textContent = rec.c || "";
+      open.setAttribute("aria-label", "Открыть слайд " + (cur + 1) + " во весь экран");
+      tickBtns.forEach(function(t, i){
+        if(i === cur) t.setAttribute("aria-current", "true");
+        else t.removeAttribute("aria-current");
+      });
+      var nx = p.imgs[(cur + 1) % p.imgs.length];
+      if(nx){ var pre = new Image(); pre.src = src(nx.i); }
+    }
+    function go(i){ cur = (i + p.imgs.length) % p.imgs.length; paint(); }
+
+    prev.addEventListener("click", function(){ go(cur - 1); });
+    next.addEventListener("click", function(){ go(cur + 1); });
+    open.addEventListener("click", function(){ ltOpen(p, cur, open, go); });
+
+    wrap.addEventListener("keydown", function(e){
+      if(lt.getAttribute("data-open") === "true") return;
+      if(e.key === "ArrowLeft"){ go(cur - 1); e.preventDefault(); }
+      else if(e.key === "ArrowRight"){ go(cur + 1); e.preventDefault(); }
+    });
+
+    var sx = 0, sy = 0;
+    stage.addEventListener("touchstart", function(e){
+      sx = e.changedTouches[0].clientX; sy = e.changedTouches[0].clientY;
+    }, {passive: true});
+    stage.addEventListener("touchend", function(e){
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1));
+    }, {passive: true});
+
+    paint();
+    return wrap;
+  }
+
   // ---------- archive timeline with inline expansion ----------
   var fHero = document.querySelector("[data-f-hero]");
   if(fHero) fHero.src = src("be-02");
@@ -882,10 +993,28 @@
 
     var panel = el("div", "f-panel");
     if(p.desc) panel.appendChild(el("p", "f-desc", p.desc));
-    var mosaic = el("div", "f-mosaic");
-    panel.appendChild(mosaic);
+    var body = el("div");
+    panel.appendChild(body);
 
     var filled = false;
+    function fill(){
+      if(filled) return;
+      filled = true;
+      // a slide album pages one frame at a time; a photo set spreads into a mosaic
+      if(p.carousel){ body.appendChild(carousel(p)); return; }
+      var mosaic = el("div", "f-mosaic");
+      seriesOf(p).forEach(function(grp){
+        if(grp.name){
+          var h = el("div", "f-series", grp.name);
+          h.appendChild(el("span", "n", String(grp.imgs.length).padStart(2, "0")));
+          mosaic.appendChild(h);
+        }
+        grp.imgs.forEach(function(item){
+          mosaic.appendChild(thumb(p, item.rec, item.idx));
+        });
+      });
+      body.appendChild(mosaic);
+    }
     row.addEventListener("click", function(){
       var open = panel.getAttribute("data-open") === "true";
       // one record open at a time keeps the timeline readable
@@ -896,19 +1025,7 @@
         o.parentNode.querySelector(".f-row").setAttribute("aria-expanded", "false");
       });
       if(open) return;
-      if(!filled){
-        seriesOf(p).forEach(function(grp){
-          if(grp.name){
-            var h = el("div", "f-series", grp.name);
-            h.appendChild(el("span", "n", String(grp.imgs.length).padStart(2, "0")));
-            mosaic.appendChild(h);
-          }
-          grp.imgs.forEach(function(item){
-            mosaic.appendChild(thumb(p, item.rec, item.idx));
-          });
-        });
-        filled = true;
-      }
+      fill();
       panel.setAttribute("data-open", "true");
       set.setAttribute("data-open", "true");
       row.setAttribute("aria-expanded", "true");
