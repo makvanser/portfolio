@@ -142,29 +142,17 @@
   .f-panel[data-open="true"]{max-height:12000px;}
   .f-desc{max-width:68ch;margin:18px 0 4px;font-size:15px;line-height:1.64;color:#B9AFA0;text-wrap:pretty;}
   .f-desc b{color:var(--paper);font-weight:600;}
-  .f-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:14px 0 clamp(18px,3vw,32px);}
-  .f-series{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:14px;
-    margin:14px 0 2px;padding-bottom:8px;border-bottom:1px solid rgba(241,238,232,.18);
-    font-family:"Familjen Grotesk",sans-serif;font-weight:600;font-size:14px;color:var(--paper);}
-  .f-series:first-child{margin-top:4px;}
-  /* an album heading stands on its own, outside the mosaic grid */
-  .f-series-solo{margin:clamp(16px,2.4vw,28px) 0 0;}
-  .f-series .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--stone);font-weight:400;
-    font-variant-numeric:tabular-nums;}
-  .f-mosaic .imgph{grid-column:span 2;aspect-ratio:4/3;background:#141210;}
-  .f-mosaic .imgph:nth-child(6n+1){grid-column:span 4;aspect-ratio:16/9;}
-  .f-mosaic .imgph img[data-kind="plan"]{background:#F1EEE8;}
-  /* posters and album slides carry type — show them whole rather than cropping */
-  .f-mosaic .imgph img[data-kind="poster"],
 
-  /* carousel — a slide album pages instead of spreading, every frame one size */
-  .cs{padding:16px 0 clamp(18px,3vw,32px);}
-  .cs-stage{position:relative;aspect-ratio:16/9;background:#141210;overflow:hidden;}
+  /* carousel — every record pages through its frames, each one the same size */
+  .cs{padding:16px 0 clamp(18px,3vw,32px);--r:1.78;}
+  /* the stage is capped by height, so the box takes exactly the width that cap allows */
+  .cs-in{width:min(100%, calc(78dvh * var(--r)));margin-inline:auto;}
+  .cs-stage{position:relative;aspect-ratio:var(--r);background:#141210;overflow:hidden;}
   .cs-open{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;
     background:none;cursor:zoom-in;}
   .cs-open img{width:100%;height:100%;object-fit:contain;display:block;}
   .cs-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;
-    width:clamp(34px,3.4vw,46px);height:clamp(34px,3.4vw,46px);border-radius:50%;
+    width:clamp(40px,3.4vw,46px);height:clamp(40px,3.4vw,46px);border-radius:50%;
     border:1px solid rgba(241,238,232,.32);background:rgba(10,9,8,.55);
     color:var(--paper);font-size:19px;line-height:1;cursor:pointer;}
   .cs-nav:hover{background:var(--brick);border-color:var(--brick);}
@@ -176,8 +164,10 @@
   .cs-series{font-weight:600;font-size:14px;color:var(--paper);}
   .cs-cap{font-size:14px;color:#B9AFA0;text-wrap:pretty;}
   .cs-ticks{display:flex;gap:3px;}
-  .cs-ticks button{flex:1;height:3px;min-width:4px;padding:0;border:0;cursor:pointer;
-    background:rgba(241,238,232,.2);}
+  /* the mark stays a hairline; the padding gives it a tappable target */
+  .cs-ticks button{flex:1;height:19px;min-width:4px;padding:8px 0;border:0;cursor:pointer;
+    background:rgba(241,238,232,.2);background-clip:content-box;}
+  .cs-ticks button.gap{margin-left:13px;}
   .cs-ticks button:hover{background:rgba(241,238,232,.55);}
   .cs-ticks button[aria-current="true"]{background:var(--brick);}
   @media (prefers-reduced-motion: no-preference){
@@ -187,7 +177,6 @@
   .f-note{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--stone);padding-bottom:16px;}
 
   /* every frame opens full screen */
-  .f-thumb{padding:0;border:0;font:inherit;color:inherit;cursor:zoom-in;}
   .f-light{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;
     background:rgba(10,9,8,.97);color:var(--paper);}
   .f-light[data-open="true"]{display:flex;}
@@ -203,7 +192,7 @@
   .lt-stage img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
   .lt-stage img[data-kind="plan"]{background:#F1EEE8;}
   .lt-nav{position:absolute;top:50%;transform:translateY(-50%);
-    width:clamp(38px,4.4vw,50px);height:clamp(38px,4.4vw,50px);border-radius:50%;
+    width:clamp(40px,4.4vw,50px);height:clamp(40px,4.4vw,50px);border-radius:50%;
     border:1px solid rgba(241,238,232,.3);background:rgba(10,9,8,.6);color:var(--paper);
     font-size:20px;line-height:1;cursor:pointer;}
   .lt-nav:hover{background:var(--brick);border-color:var(--brick);}
@@ -563,14 +552,6 @@
     im("be-09","render","","Жилые кластеры"),
     im("be-10","render","Проход между блоками, вид на горы","Жилые кластеры"),
     im("be-11","render","","Жилые кластеры"),
-    im("be-12","render","Барная зона ресторана","Ресторан"),
-    im("be-13","render","","Ресторан"),
-    im("be-14","render","","Ресторан"),
-    im("be-15","render","","Ресторан"),
-    im("be-16","render","Обеденный зал на закате","Ресторан"),
-    im("be-17","render","","Ресторан"),
-    im("be-18","render","","Ресторан"),
-    im("be-19","render","","Ресторан"),
     im("be-20","plan","Титульный лист: «Living clusters. 2 level building. Living unit A»","Чертежи, жилой блок A"),
     im("be-21","plan","Общие данные и состав альбома","Чертежи, жилой блок A"),
     im("be-22","plan","Схема размещения на участке с отметками рельефа","Чертежи, жилой блок A"),
@@ -593,7 +574,15 @@
     im("be-39","plan","Спецификации дверей и окон","Чертежи, жилой блок A"),
     im("be-40","plan","Узлы примыкания стен и перегородок","Чертежи, жилой блок A"),
     im("be-41","plan","Узлы кровли и примыканий, М 1:20 и 1:12","Чертежи, жилой блок A"),
-    im("be-42","plan","Узлы фасада: стальной каркас под панели GRC, М 1:10","Чертежи, жилой блок A")
+    im("be-42","plan","Узлы фасада: стальной каркас под панели GRC, М 1:10","Чертежи, жилой блок A"),
+    im("be-12","render","Барная зона ресторана","Ресторан"),
+    im("be-13","render","","Ресторан"),
+    im("be-14","render","","Ресторан"),
+    im("be-15","render","","Ресторан"),
+    im("be-16","render","Обеденный зал на закате","Ресторан"),
+    im("be-17","render","","Ресторан"),
+    im("be-18","render","","Ресторан"),
+    im("be-19","render","","Ресторан")
   ];
 
   var RF = [
@@ -726,60 +715,59 @@
   ];
 
   var PROJECTS = [
-    {id:"bertha", code:"PRJ–01", num:"01", t:"Bertha Village, Кипр", meta:"жилой комплекс для пожилых людей · Кипр",
+    {id:"bertha", ratio:"1.5", code:"PRJ–01", num:"01", t:"Bertha Village, Кипр", meta:"жилой комплекс для пожилых людей · Кипр",
      group:"practice", cat:"built", tag:"построено", catLabel:"построено · жилой комплекс",
      lead:true, leadNote:"последняя работа",
-     albums:{"Чертежи, жилой блок A":"1.414"},
      desc:"<b>Bertha Village — жилой комплекс для пожилых людей на Кипре.</b> Проект интегрирован в естественный рельеф участка и построен на принципах приватности, доступности и визуальной связи с ландшафтом. В рамках проекта я занимался разработкой концепции и рабочей документации жилых модулей, включая планировочные решения, фасады и адаптацию зданий к сложному рельефу.",
      imgs:BE},
-    {id:"clinic", code:"PRJ–02", num:"02", t:"Поликлиника, Новосибирск", meta:"медицинский центр · 4 эт. · 20 м",
+    {id:"clinic", ratio:"1.78", code:"PRJ–02", num:"02", t:"Поликлиника, Новосибирск", meta:"медицинский центр · 4 эт. · 20 м",
      group:"practice", cat:"built", tag:"проект", catLabel:"медицинский центр",
      desc:"Четырёхэтажное здание медицинского центра высотой 20 метров без чердака, разработанное с учётом строгих градостроительных норм и стандартов. Концепция включает кабинеты врачей различных специализаций, лаборатории, травматологическое и хирургическое отделения, а также прочие медицинские и административные помещения, и отражает необходимость соблюдения отступов от границ участка и требований к безопасности. Архитектурное решение ориентировано на психологический комфорт посетителей и интеграцию с окружающей застройкой: простые, но выразительные формы фасадов, современные материалы и продуманная цветовая схема, гармонирующая с ландшафтом города Новосибирска.",
      imgs:CL},
-    {id:"school", code:"PRJ–03", num:"03", t:"Школа на 22 класса", meta:"образование · 3 эт. · 18 м",
+    {id:"school", ratio:"1.6", code:"PRJ–03", num:"03", t:"Школа на 22 класса", meta:"образование · 3 эт. · 18 м",
      group:"practice", cat:"built", tag:"проект", catLabel:"образование",
      desc:"Трёхэтажное образовательное учреждение высотой 18 метров, спроектированное с учётом уникальных градостроительных требований территории. Здание предлагает широкий спектр учебных пространств: специализированные классы, научные лаборатории, спортивные и актовые залы, а также вспомогательные и управленческие помещения. Архитектурная концепция направлена на создание комфортной обстановки для учащихся и гармоничное сочетание со средой окружающей застройки — через продуманную планировочную структуру, экспрессивные архитектурные формы, современные строительные материалы и оттенки, выбранные для фасада.",
      imgs:SC},
 
-    {id:"safa", code:"PRJ–13", num:"13", t:"Safa Climate Commons, Дубай", meta:"конкурс Dubai Municipality · парк 15 000 м²",
+    {id:"safa", ratio:"1.78", code:"PRJ–13", num:"13", t:"Safa Climate Commons, Дубай", meta:"конкурс Dubai Municipality · парк 15 000 м²",
      group:"competition", cat:"competition", tag:"конкурс · Dubai AI Park", catLabel:"конкурс · Dubai AI Park",
-     co:true, coNote:"в соавторстве", carousel:true,
+     co:true, coNote:"в соавторстве",
      desc:"<b>Safa Climate Commons</b> — конкурсное предложение для Al Safa Park 2 в Дубае: районный парк площадью 15 000 м², концепция и предварительный проект. Dubai Municipality AI Park Design Challenge — конкурс муниципалитета Дубая, где искусственный интеллект нужно было применить как вспомогательный инструмент анализа и проверки решений, а не как замену проектировщику. Призовой фонд 200 000 дирхамов; первое место получает возможность довести проект до пилотного парка.<br><br>Парк собран как последовательность связанных микроклиматов. Его держат две системы: Porous Shade Network — проницаемая сеть затенения, которая смягчает солнце, не закрывая ландшафт, и Recovery Loop — непрерывный безбарьерный маршрут, связывающий пальмовый оазис, заглублённые дворы, приподнятые деки, лужайки и общественные зоны от раннего утра до вечера. Перфорированные экраны по мотивам машрабии фильтруют свет, сохраняют просматриваемость и дают меняющийся рисунок тени.<br><br>В основе — климатический анализ: инсоляция, ветер и тепловой комфорт, разобранный в четырёх сочетаниях солнца, тени и ветрозащиты. Парк затенён неравномерно: каждое пространство получает свой баланс кроны, растительности и открытости в зависимости от экспозиции, функции и времени использования.<br><br>ИИ применялся на исследовательской части: генерация альтернативных планировочных и объёмных решений, сверка их с границами участка, геометрией мастер-плана и данными симуляций. В проект попадали только варианты, прошедшие эту проверку — итоговая геометрия и все архитектурные решения приняты человеком.<br><br>Работа выполнена <b>в соавторстве с Полиной Носиковой</b>. Результаты конкурса на момент публикации не объявлены.",
      imgs:SF},
-    {id:"biota", code:"PRJ–04", num:"04", t:"Biota", meta:"AIxBiomimicry",
+    {id:"biota", ratio:"1.78", code:"PRJ–04", num:"04", t:"Biota", meta:"AIxBiomimicry",
      group:"competition", cat:"competition", tag:"конкурс · AIxBiomimicry", catLabel:"конкурс · AIxBiomimicry",
      desc:"В проекте «Biota» сочетаются три ключевых принципа: кристаллическая форма, вдохновлённая костной структурой птиц, обеспечивает лёгкость и грацию здания; внешний фасад, напоминающий медузу, гарантирует естественный свет и прозрачность; внутреннее пространство, оживлённое концепцией биолюминесценции, создаёт впечатление погружения в светящийся подводный мир. Комплекс — воплощение принципов биомимикрии — включает музей природы и мультимедийный центр, позволяющий посетителям ощутить красоту и разнообразие природных экосистем.",
      imgs:BI},
-    {id:"barcelona", code:"PRJ–05", num:"05", t:"Barcelona 2051", meta:"исследование · 8 планшетов",
+    {id:"barcelona", ratio:"1", code:"PRJ–05", num:"05", t:"Barcelona 2051", meta:"исследование · 8 планшетов",
      group:"competition", cat:"competition", tag:"исследование", catLabel:"исследование",
      desc:"Аналитическое исследование адаптации Барселоны к середине века: климат, суперблоки и управление городом через цифрового двойника. Разбор построен по масштабам — от тела человека до планетарного уровня.",
      imgs:BA},
-    {id:"regen", code:"PRJ–06", num:"06", t:"EcoSynergy Haven", meta:"конкурс SPACE10 · Regenerative Futures",
+    {id:"regen", ratio:"1.78", code:"PRJ–06", num:"06", t:"EcoSynergy Haven", meta:"конкурс SPACE10 · Regenerative Futures",
      group:"competition", cat:"competition", tag:"конкурс · SPACE10", catLabel:"конкурс · SPACE10",
      desc:"Этот конкурсный проект представляет собой визию симбиотического города будущего, где дома и общественные пространства, созданные из экологически чистых материалов, используют источники возобновляемой энергии, технологии экономии воды и системы управления отходами.<br><br>Обширные зелёные зоны, гидропоника и вертикальное озеленение обеспечивают продовольственную независимость, в то время как общее использование ресурсов, обмен данными и технологиями способствуют развитию сообщества и культурного разнообразия.<br><br>Этот проект исследует возможности устойчивого городского развития, представляя модель города, который может обеспечить высокое качество жизни при минимальном воздействии на окружающую среду.",
      imgs:RF},
-    {id:"eclipse", code:"PRJ–07", num:"07", t:"Hall of Eclipse", meta:"Metaverse Architecture Biennale",
+    {id:"eclipse", ratio:"1.4", code:"PRJ–07", num:"07", t:"Hall of Eclipse", meta:"Metaverse Architecture Biennale",
      group:"competition", cat:"competition", tag:"конкурс · Metaverse Biennale", catLabel:"конкурс · Metaverse Biennale",
      desc:"«Hall of Eclipse» — это метафора метавселенных. В мире «Ephemeral Stream» можно погрузиться в медитативный оазис, побродить по библиотеке мыслей и заблудиться в облаке мечтаний. В центральной вселенной, исследуя таинственные пространства среди облаков и гладких форм, каждый завершает своё медитативное путешествие и взаимодействует с этим миром.",
      imgs:EC},
-    {id:"hetao", code:"PRJ–08", num:"08", t:"Hetao Vision", meta:"конкурс AI-видео · UABBHK 2025",
+    {id:"hetao", ratio:"1.4", code:"PRJ–08", num:"08", t:"Hetao Vision", meta:"конкурс AI-видео · UABBHK 2025",
      group:"competition", cat:"competition", tag:"финалист", catLabel:"конкурс · финалист",
      award:true, awardNote:"шортлист",
      desc:"<b>Hetao Vision: Innovative AI Video Competition</b> — конкурс в рамках Гонконг-Шэньчжэньской биеннале урбанистики и архитектуры 2025 (UABBHK) с темой TECHFORMANCE: архитектура как перформанс в эпоху AI. Организаторы — Hong Kong Institute of Architects Biennale Foundation и Shenzhen Biennale Foundation, жюри из Гонконга и Шэньчжэня.<br><br>Участникам предлагалось средствами AI показать будущее Хэтао — зоны научно-технического сотрудничества Шэньчжэня и Гонконга, построенной на принципе «одна река, два берега».<br><br>Работа вошла в шортлист: сертификат финалиста в категории Open Group. Отобранные ролики публично показывали в Hetao Science and Technology Innovation Centre в феврале 2026 года.",
      imgs:HT},
-    {id:"archmoscow", code:"PRJ–09", num:"09", t:"DigitalArt ArchMoscow", meta:"конкурс · АРХ Москва",
+    {id:"archmoscow", ratio:"0.62", code:"PRJ–09", num:"09", t:"DigitalArt ArchMoscow", meta:"конкурс · АРХ Москва",
      group:"competition", cat:"competition", tag:"конкурс · АРХ Москва", catLabel:"конкурс · АРХ Москва",
      desc:"Монохромные композиции: бетон, вода и свет в монументальном пространстве.",
      imgs:AM},
-    {id:"mavridis", code:"PRJ–10", num:"10", t:"Mavridis", meta:"торговый комплекс · для бюро",
+    {id:"mavridis", ratio:"1.78", code:"PRJ–10", num:"10", t:"Mavridis", meta:"торговый комплекс · для бюро",
      group:"render", cat:"render", tag:"рендер для бюро", catLabel:"рендер для бюро",
      desc:"Протяжённый объём со сводчатой галереей и вечерней подсветкой витрин.",
      imgs:MV},
-    {id:"echo", code:"PRJ–11", num:"11", t:"Эхо Табахмеле", meta:"рендер для бюро · инсталляции",
+    {id:"echo", ratio:"1.7", code:"PRJ–11", num:"11", t:"Эхо Табахмеле", meta:"рендер для бюро · инсталляции",
      group:"render", cat:"render", tag:"рендер для бюро", catLabel:"рендер для бюро",
      desc:"«Эхо Табахмеле» — коммерческий арт-проект, вдохновлённый атмосферой Burning Man: коллекция инсталляций и площадок в Табахмеле, созданных для объединения искусства, технологий и сообщества. Цель — показать уникальные идеи каждой инсталляции, подчёркивающие темы возрождения, взаимодействия и экспериментирования, чтобы превратить это пространство в источник вдохновения и творческого обмена.",
      imgs:ET},
-    {id:"krym", code:"PRJ–12", num:"12", t:"Крым, прибрежный комплекс", meta:"видео · для бюро",
+    {id:"krym", ratio:"1.78", code:"PRJ–12", num:"12", t:"Крым, прибрежный комплекс", meta:"видео · для бюро",
      group:"render", cat:"render", tag:"рендер для бюро · видео", catLabel:"рендер для бюро · видео",
      desc:"Жилой комплекс на склоне у моря. Ролик 21 секунда, летний день.",
      imgs:KR}
@@ -794,16 +782,6 @@
     if(cls) e.className = cls;
     if(html != null) e.innerHTML = html;
     return e;
-  }
-  // walk a project's frames as [{name, imgs:[{rec, idx}]}]
-  function seriesOf(p){
-    var out = [], last = null;
-    p.imgs.forEach(function(rec, idx){
-      var name = rec.s || "";
-      if(!last || last.name !== name){ last = {name: name, imgs: []}; out.push(last); }
-      last.imgs.push({rec: rec, idx: idx});
-    });
-    return out;
   }
 
 
@@ -899,22 +877,6 @@
     if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) ltStep(dx < 0 ? 1 : -1);
   }, {passive: true});
 
-  // a mosaic frame is a button into the viewer
-  function thumb(p, rec, idx){
-    var b = el("button", "imgph f-thumb");
-    b.type = "button";
-    b.setAttribute("aria-label",
-      "Открыть кадр " + (idx + 1) + " из " + p.imgs.length + " во весь экран");
-    if(rec.k === "video") b.appendChild(el("span", "vid-badge", "ВИДЕО"));
-    var i = document.createElement("img");
-    i.setAttribute("data-kind", rec.k);
-    i.alt = rec.c || (p.t + " — кадр " + (idx + 1));
-    i.loading = "lazy";
-    i.src = src(rec.i);
-    b.appendChild(i);
-    b.addEventListener("click", function(){ ltOpen(p, idx, b); });
-    return b;
-  }
 
   // a slide album: one frame at a time, every frame the same size.
   // `list` limits it to some frames of the record; `ratio` sets the stage shape.
@@ -922,9 +884,11 @@
     var idxs = list || p.imgs.map(function(_, i){ return i; });
     var cur = 0;
     var wrap = el("div", "cs");
+    if(ratio) wrap.style.setProperty("--r", ratio);
+    var inner = el("div", "cs-in");
+    wrap.appendChild(inner);
 
     var stage = el("div", "cs-stage");
-    if(ratio) stage.style.aspectRatio = ratio;
     var open = el("button", "cs-open");
     open.type = "button";
     var img = document.createElement("img");
@@ -938,7 +902,7 @@
     next.setAttribute("aria-label", "Следующий слайд");
     stage.appendChild(prev);
     stage.appendChild(next);
-    wrap.appendChild(stage);
+    inner.appendChild(stage);
 
     var bar = el("div", "cs-bar");
     var idx = el("span", "cs-idx");
@@ -946,19 +910,25 @@
     var series = el("span", "cs-series");
     var cap = el("span", "cs-cap");
     bar.appendChild(idx); bar.appendChild(series); bar.appendChild(cap);
-    wrap.appendChild(bar);
+    inner.appendChild(bar);
 
     // one tick per slide: shows position in the album and jumps straight to it
     var ticks = el("div", "cs-ticks");
+    var last = null;
     var tickBtns = idxs.map(function(gi, i){
       var t = el("button");
       t.type = "button";
-      t.setAttribute("aria-label", "Кадр " + (i + 1) + " из " + idxs.length);
+      // a gap marks where one folder ends and the next begins
+      var name = p.imgs[gi].s || "";
+      if(last !== null && name !== last) t.className = "gap";
+      last = name;
+      t.setAttribute("aria-label", "Кадр " + (i + 1) + " из " + idxs.length
+        + (name ? " · " + name : ""));
       t.addEventListener("click", function(){ go(i); });
       ticks.appendChild(t);
       return t;
     });
-    wrap.appendChild(ticks);
+    inner.appendChild(ticks);
 
     function paint(){
       var rec = p.imgs[idxs[cur]];
@@ -1036,37 +1006,7 @@
       if(filled) return;
       filled = true;
       // a slide album pages one frame at a time; a photo set spreads into a mosaic
-      if(p.carousel){ body.appendChild(carousel(p)); return; }
-
-      // a series listed in p.albums is a sheet set: it pages instead of spreading
-      var albums = [], photos = [];
-      seriesOf(p).forEach(function(grp){
-        if(p.albums && p.albums[grp.name]) albums.push(grp); else photos.push(grp);
-      });
-
-      if(photos.length){
-        var mosaic = el("div", "f-mosaic");
-        photos.forEach(function(grp){
-          if(grp.name){
-            var h = el("div", "f-series", grp.name);
-            h.appendChild(el("span", "n", pad(grp.imgs.length)));
-            mosaic.appendChild(h);
-          }
-          grp.imgs.forEach(function(item){
-            mosaic.appendChild(thumb(p, item.rec, item.idx));
-          });
-        });
-        body.appendChild(mosaic);
-      }
-
-      albums.forEach(function(grp){
-        var h = el("div", "f-series f-series-solo", grp.name);
-        h.appendChild(el("span", "n", pad(grp.imgs.length)));
-        body.appendChild(h);
-        body.appendChild(carousel(p,
-          grp.imgs.map(function(item){ return item.idx; }),
-          p.albums[grp.name]));
-      });
+      body.appendChild(carousel(p, null, p.ratio || "1.78"));
     }
     row.addEventListener("click", function(){
       var open = panel.getAttribute("data-open") === "true";
