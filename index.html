@@ -27,6 +27,7 @@
     font-family:"Familjen Grotesk",system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
   img{max-width:100%;}
+  [hidden]{display:none !important;}
   :focus-visible{outline:2px solid #AD5E2F;outline-offset:3px;}
   ::selection{background:#AD5E2F;color:#F1EEE8;}
 
@@ -151,6 +152,8 @@
   .cs-open{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;
     background:none;cursor:zoom-in;}
   .cs-open img{width:100%;height:100%;object-fit:contain;display:block;}
+  .cs-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+    display:block;background:#000;}
   .cs-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;
     width:clamp(40px,3.4vw,46px);height:clamp(40px,3.4vw,46px);border-radius:50%;
     border:1px solid rgba(241,238,232,.32);background:rgba(10,9,8,.55);
@@ -191,6 +194,7 @@
     justify-content:center;padding:0 clamp(52px,7vw,88px);}
   .lt-stage img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
   .lt-stage img[data-kind="plan"]{background:#F1EEE8;}
+  .lt-video{max-width:100%;max-height:100%;display:block;background:#000;}
   .lt-nav{position:absolute;top:50%;transform:translateY(-50%);
     width:clamp(40px,4.4vw,50px);height:clamp(40px,4.4vw,50px);border-radius:50%;
     border:1px solid rgba(241,238,232,.3);background:rgba(10,9,8,.6);color:var(--paper);
@@ -490,6 +494,7 @@
   <div class="lt-stage" data-lt-stage>
     <button class="lt-nav lt-prev" type="button" data-lt-prev aria-label="Предыдущий кадр">‹</button>
     <img data-lt-img alt="">
+    <video class="lt-video" data-lt-video controls preload="none" playsinline hidden></video>
     <button class="lt-nav lt-next" type="button" data-lt-next aria-label="Следующий кадр">›</button>
   </div>
   <div class="lt-cap">
@@ -505,6 +510,12 @@
 
   // images ship as files next to the page, not as inline data
   function src(id){ return "assets/img/" + id + ".webp"; }
+
+  // frames that are footage rather than a still
+  var VIDEO = {
+    "ht-01": "assets/video/hetao.mp4",
+    "kr-01": "assets/video/krym.mp4"
+  };
 
   function im(id,kind,cap,series){ return {i:id, k:kind||"render", c:cap||"", s:series||""}; }
 
@@ -594,7 +605,7 @@
     im("mv-04","render","Вечернее освещение")
   ];
 
-  var KR = [im("kr-01","video","Кадр из ролика · 1280×720 · 21 с")];
+  var KR = [im("kr-01","video","Ролик · 1280×720 · 21 с")];
 
   var BIO = {
     lead: "Я архитектор с более чем пятнадцатилетним опытом работы.",
@@ -640,7 +651,7 @@
   }
 
   var HT = [
-    im("ht-01","video","Кадр из конкурсного ролика · 66 с","Ролик"),
+    im("ht-01","video","Конкурсный ролик · 1:06","Ролик"),
     im("ht-02","poster","Сертификат финалиста","Награда")
   ];
 
@@ -793,6 +804,7 @@
   // ---------- fullscreen viewer ----------
   var lt = document.querySelector("[data-light]");
   var ltImg = lt.querySelector("[data-lt-img]");
+  var ltVid = lt.querySelector("[data-lt-video]");
   var ltIdx = lt.querySelector("[data-lt-idx]");
   var ltSeries = lt.querySelector("[data-lt-series]");
   var ltText = lt.querySelector("[data-lt-text]");
@@ -802,16 +814,26 @@
   function pad(n){ return String(n).padStart(2, "0"); }
 
   function ltPaint(){
-    var p = ltState.p, rec = p.imgs[ltState.i];
-    ltImg.src = src(rec.i);
-    ltImg.setAttribute("data-kind", rec.k);
-    ltImg.alt = rec.c || (p.t + " — кадр " + (ltState.i + 1));
+    var p = ltState.p, rec = p.imgs[ltState.i], vsrc = VIDEO[rec.i];
+    if(vsrc){
+      ltImg.hidden = true;
+      ltVid.hidden = false;
+      ltVid.poster = src(rec.i);
+      if(ltVid.getAttribute("src") !== vsrc) ltVid.src = vsrc;
+    } else {
+      ltVid.pause();
+      ltVid.hidden = true;
+      ltImg.hidden = false;
+      ltImg.src = src(rec.i);
+      ltImg.setAttribute("data-kind", rec.k);
+      ltImg.alt = rec.c || (p.t + " — кадр " + (ltState.i + 1));
+    }
     ltIdx.textContent = p.t + " · " + pad(ltState.i + 1) + " / " + pad(p.imgs.length);
     ltSeries.textContent = rec.s || "";
     ltText.textContent = rec.c || "";
     // one record is rarely browsed twice, but the neighbours are
     var nx = p.imgs[(ltState.i + 1) % p.imgs.length];
-    if(nx) { var pre = new Image(); pre.src = src(nx.i); }
+    if(nx && !VIDEO[nx.i]) { var pre = new Image(); pre.src = src(nx.i); }
   }
 
   function ltOpen(p, i, from, sync){
@@ -824,6 +846,7 @@
   }
 
   function ltShut(){
+    ltVid.pause();
     lt.removeAttribute("data-open");
     document.body.classList.remove("locked");
     if(ltState.from && ltState.from.focus) ltState.from.focus();
@@ -848,6 +871,7 @@
   document.addEventListener("keydown", function(e){
     if(lt.getAttribute("data-open") !== "true") return;
     if(e.key === "Escape") ltShut();
+    else if(e.target === ltVid) return;
     else if(e.key === "ArrowLeft") ltStep(-1);
     else if(e.key === "ArrowRight") ltStep(1);
   });
@@ -879,6 +903,11 @@
     var img = document.createElement("img");
     open.appendChild(img);
     stage.appendChild(open);
+
+    var vid = document.createElement("video");
+    vid.className = "cs-video";
+    vid.controls = true; vid.preload = "none"; vid.playsInline = true; vid.hidden = true;
+    stage.appendChild(vid);
 
     var prev = el("button", "cs-nav cs-prev", "‹");
     var next = el("button", "cs-nav cs-next", "›");
@@ -916,10 +945,20 @@
     inner.appendChild(ticks);
 
     function paint(){
-      var rec = p.imgs[idxs[cur]];
-      img.src = src(rec.i);
-      img.setAttribute("data-kind", rec.k);
-      img.alt = rec.c || (p.t + " — слайд " + (cur + 1));
+      var rec = p.imgs[idxs[cur]], vsrc = VIDEO[rec.i];
+      if(vsrc){
+        open.hidden = true;
+        vid.hidden = false;
+        vid.poster = src(rec.i);
+        if(vid.getAttribute("src") !== vsrc) vid.src = vsrc;
+      } else {
+        vid.pause();
+        vid.hidden = true;
+        open.hidden = false;
+        img.src = src(rec.i);
+        img.setAttribute("data-kind", rec.k);
+        img.alt = rec.c || (p.t + " — кадр " + (cur + 1));
+      }
       idx.textContent = pad(cur + 1) + " / " + pad(idxs.length);
       series.textContent = rec.s || "";
       cap.textContent = rec.c || "";
@@ -929,7 +968,7 @@
         else t.removeAttribute("aria-current");
       });
       var nx = p.imgs[idxs[(cur + 1) % idxs.length]];
-      if(nx){ var pre = new Image(); pre.src = src(nx.i); }
+      if(nx && !VIDEO[nx.i]){ var pre = new Image(); pre.src = src(nx.i); }
     }
     function go(i){ cur = (i + idxs.length) % idxs.length; paint(); }
 
@@ -944,7 +983,7 @@
     });
 
     wrap.addEventListener("keydown", function(e){
-      if(lt.getAttribute("data-open") === "true") return;
+      if(lt.getAttribute("data-open") === "true" || e.target === vid) return;
       if(e.key === "ArrowLeft"){ go(cur - 1); e.preventDefault(); }
       else if(e.key === "ArrowRight"){ go(cur + 1); e.preventDefault(); }
     });
@@ -954,6 +993,7 @@
       sx = e.changedTouches[0].clientX; sy = e.changedTouches[0].clientY;
     }, {passive: true});
     stage.addEventListener("touchend", function(e){
+      if(e.target === vid) return;
       var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
       if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1));
     }, {passive: true});
