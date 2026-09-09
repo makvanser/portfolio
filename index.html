@@ -126,13 +126,27 @@
   .f-timeline{background:var(--ink);color:var(--paper);padding:clamp(44px,7vw,104px) clamp(16px,4vw,48px) clamp(30px,5vw,64px);}
   .f-lede{max-width:56ch;margin:0 0 clamp(26px,4vw,46px);color:#C4BBAE;font-size:clamp(15px,1.6vw,18px);line-height:1.6;text-wrap:pretty;}
   .f-lede b{color:var(--paper);font-weight:600;}
-  .f-row{display:grid;grid-template-columns:minmax(104px,18vw) 1fr auto;gap:clamp(12px,3vw,40px);align-items:baseline;
+  .f-sort{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;
+    margin:0 0 clamp(14px,2.4vw,24px);padding-bottom:13px;
+    border-bottom:1px solid rgba(241,238,232,.15);}
+  .f-sort-l{color:var(--stone);letter-spacing:.07em;text-transform:uppercase;}
+  .f-sort button{background:none;border:0;padding:5px 0;cursor:pointer;font:inherit;
+    color:#C4BBAE;border-bottom:1px solid transparent;}
+  .f-sort button:hover{color:var(--paper);}
+  .f-sort button[aria-pressed="true"]{color:var(--brick);border-bottom-color:var(--brick);}
+  @media (prefers-reduced-motion: no-preference){
+    .f-sort button{transition:color .2s,border-color .2s;}
+  }
+  .f-row{display:grid;grid-template-columns:minmax(70px,11vw) 1fr auto;gap:clamp(12px,3vw,40px);align-items:baseline;
     width:100%;padding:clamp(14px,2.2vw,26px) 0;border:0;border-top:1px solid rgba(241,238,232,.15);
     background:none;text-align:left;color:inherit;cursor:pointer;font:inherit;}
   .f-row:hover{border-top-color:rgba(241,238,232,.42);}
-  .f-row .yr{font-family:"Onest",system-ui,sans-serif;font-weight:300;font-size:clamp(23px,3.9vw,54px);
-    line-height:.9;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .f-row .yr{font-family:"Onest",system-ui,sans-serif;font-weight:300;font-size:clamp(30px,5.6vw,78px);
+    line-height:.88;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;}
   .f-row .ttl{font-size:clamp(15px,1.9vw,23px);line-height:1.2;text-wrap:balance;}
+  .f-row .sig-y{color:#C4BBAE;font-weight:400;}
+  .f-row[aria-expanded="true"] .sig-y{color:var(--brick);}
   .f-row .sig{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--stone);white-space:nowrap;
     font-variant-numeric:tabular-nums;}
   .f-row[aria-expanded="true"] .yr{color:var(--brick);}
@@ -302,8 +316,14 @@
 
   <section class="f-timeline" id="f-archive">
     <p class="f-lede"><b>Архив работ.</b> Пятнадцать лет практики, конкурсов и визуализаций для бюро. Нажмите на запись, чтобы раскрыть её материалы.</p>
+    <div class="f-sort" role="group" aria-label="Порядок записей">
+      <span class="f-sort-l">Порядок</span>
+      <button type="button" data-sort="new">Сначала новые</button>
+      <button type="button" data-sort="old">Сначала старые</button>
+      <button type="button" data-sort="kind">По типу работы</button>
+    </div>
     <div data-ftimeline></div>
-    <p class="f-note">Записи отсортированы по году, от новых к старым.</p>
+    <p class="f-note">Нумерация отражает выбранный порядок. Диапазон означает, что работа шла два года.</p>
   </section>
 
   <section class="f-bio" id="f-bio">
@@ -769,8 +789,7 @@
      imgs:KR}
   ];
 
-  // a range sorts by the year the work ended
-  PROJECTS.sort(function(a, b){ return b.y[b.y.length - 1] - a.y[a.y.length - 1]; });
+  function endYear(p){ return p.y[p.y.length - 1]; }
 
   function yearLabel(y){
     return y.length > 1 ? y[0] + "–" + String(y[1]).slice(2) : String(y[0]);
@@ -1014,19 +1033,24 @@
   if(fHero) fHero.src = src("be-02");
 
   var fHost = document.querySelector("[data-ftimeline]");
-  PROJECTS.forEach(function(p){
+  var records = [];
+  PROJECTS.forEach(function(p, i){
     var set = el("div", "f-rowset");
 
     var row = el("button", "f-row");
     row.type = "button";
     row.setAttribute("aria-expanded", "false");
-    row.appendChild(el("span", "yr", yearLabel(p.y)));
+    var numEl = el("span", "yr", pad(i + 1));
+    row.appendChild(numEl);
     var mid = el("span", "ttl", p.t);
     if(p.lead) mid.appendChild(el("span", "lead-mark", "· " + p.leadNote));
     if(p.award) mid.appendChild(el("span", "award-mark", "· " + p.awardNote));
     if(p.co) mid.appendChild(el("span", "co-mark", "· " + p.coNote));
     row.appendChild(mid);
-    row.appendChild(el("span", "sig", p.catLabel + " · " + p.imgs.length));
+    var sig = el("span", "sig");
+    sig.appendChild(el("b", "sig-y", yearLabel(p.y)));
+    sig.appendChild(document.createTextNode(" · " + p.catLabel + " · " + p.imgs.length));
+    row.appendChild(sig);
 
     var panel = el("div", "f-panel");
     if(p.desc) panel.appendChild(el("p", "f-desc", p.desc));
@@ -1062,7 +1086,35 @@
     set.appendChild(row);
     set.appendChild(panel);
     fHost.appendChild(set);
+    records.push({p: p, set: set, num: numEl});
   });
+
+  // built carousels and open records survive a re-order, so move nodes rather than rebuild
+  var GROUP_RANK = {practice: 0, competition: 1, render: 2};
+  var ORDERS = {
+    "new":  function(a, b){ return endYear(b.p) - endYear(a.p); },
+    "old":  function(a, b){ return endYear(a.p) - endYear(b.p); },
+    "kind": function(a, b){
+      return (GROUP_RANK[a.p.group] - GROUP_RANK[b.p.group]) || (endYear(b.p) - endYear(a.p));
+    }
+  };
+
+  var sortBtns = document.querySelectorAll("[data-sort]");
+  function applyOrder(mode){
+    var arr = records.slice();
+    arr.sort(ORDERS[mode]);
+    arr.forEach(function(r, n){
+      r.num.textContent = pad(n + 1);
+      fHost.appendChild(r.set);
+    });
+    sortBtns.forEach(function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-sort") === mode ? "true" : "false");
+    });
+  }
+  sortBtns.forEach(function(b){
+    b.addEventListener("click", function(){ applyOrder(b.getAttribute("data-sort")); });
+  });
+  applyOrder("new");
 
   var fWorks = document.querySelector("[data-fworks]");
   [{pid:"bertha", i:"be-01", c:"Bertha Village — первый вариант кластеров"},
