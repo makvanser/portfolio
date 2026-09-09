@@ -147,6 +147,8 @@
     margin:14px 0 2px;padding-bottom:8px;border-bottom:1px solid rgba(241,238,232,.18);
     font-family:"Familjen Grotesk",sans-serif;font-weight:600;font-size:14px;color:var(--paper);}
   .f-series:first-child{margin-top:4px;}
+  /* an album heading stands on its own, outside the mosaic grid */
+  .f-series-solo{margin:clamp(16px,2.4vw,28px) 0 0;}
   .f-series .n{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--stone);font-weight:400;
     font-variant-numeric:tabular-nums;}
   .f-mosaic .imgph{grid-column:span 2;aspect-ratio:4/3;background:#141210;}
@@ -568,7 +570,30 @@
     im("be-16","render","Обеденный зал на закате","Ресторан"),
     im("be-17","render","","Ресторан"),
     im("be-18","render","","Ресторан"),
-    im("be-19","render","","Ресторан")
+    im("be-19","render","","Ресторан"),
+    im("be-20","plan","Титульный лист: «Living clusters. 2 level building. Living unit A»","Чертежи, жилой блок A"),
+    im("be-21","plan","Общие данные и состав альбома","Чертежи, жилой блок A"),
+    im("be-22","plan","Схема размещения на участке с отметками рельефа","Чертежи, жилой блок A"),
+    im("be-23","plan","Разбивочный план основных осей, М 1:100","Чертежи, жилой блок A"),
+    im("be-24","plan","Входы с первого этажа, М 1:100, и узел D-01","Чертежи, жилой блок A"),
+    im("be-25","plan","Входы со второго этажа, М 1:100, и узел D-02","Чертежи, жилой блок A"),
+    im("be-26","plan","План первого этажа, кладка, М 1:100","Чертежи, жилой блок A"),
+    im("be-27","plan","План второго этажа, кладка, М 1:100","Чертежи, жилой блок A"),
+    im("be-28","plan","План первого этажа: мебель и сантехника, М 1:100","Чертежи, жилой блок A"),
+    im("be-29","plan","План второго этажа: мебель и сантехника, М 1:100","Чертежи, жилой блок A"),
+    im("be-30","plan","Сводный электрический план первого этажа: розетки, выключатели, светильники","Чертежи, жилой блок A"),
+    im("be-31","plan","Сводный электрический план второго этажа","Чертежи, жилой блок A"),
+    im("be-32","plan","План кровли, М 1:100, и ведомость кровельных покрытий","Чертежи, жилой блок A"),
+    im("be-33","plan","Разрез S-01, М 1:100","Чертежи, жилой блок A"),
+    im("be-34","plan","Разрез S-02, М 1:100","Чертежи, жилой блок A"),
+    im("be-35","plan","Фасады по осям 1–19 и 19–1, М 1:100","Чертежи, жилой блок A"),
+    im("be-36","plan","Фасады по осям A–F и F–A, М 1:100","Чертежи, жилой блок A"),
+    im("be-37","plan","Фасады фрагментов, М 1:50","Чертежи, жилой блок A"),
+    im("be-38","plan","Ведомость полов и спецификация дверей","Чертежи, жилой блок A"),
+    im("be-39","plan","Спецификации дверей и окон","Чертежи, жилой блок A"),
+    im("be-40","plan","Узлы примыкания стен и перегородок","Чертежи, жилой блок A"),
+    im("be-41","plan","Узлы кровли и примыканий, М 1:20 и 1:12","Чертежи, жилой блок A"),
+    im("be-42","plan","Узлы фасада: стальной каркас под панели GRC, М 1:10","Чертежи, жилой блок A")
   ];
 
   var RF = [
@@ -704,6 +729,7 @@
     {id:"bertha", code:"PRJ–01", num:"01", t:"Bertha Village, Кипр", meta:"жилой комплекс для пожилых людей · Кипр",
      group:"practice", cat:"built", tag:"построено", catLabel:"построено · жилой комплекс",
      lead:true, leadNote:"последняя работа",
+     albums:{"Чертежи, жилой блок A":"1.414"},
      desc:"<b>Bertha Village — жилой комплекс для пожилых людей на Кипре.</b> Проект интегрирован в естественный рельеф участка и построен на принципах приватности, доступности и визуальной связи с ландшафтом. В рамках проекта я занимался разработкой концепции и рабочей документации жилых модулей, включая планировочные решения, фасады и адаптацию зданий к сложному рельефу.",
      imgs:BE},
     {id:"clinic", code:"PRJ–02", num:"02", t:"Поликлиника, Новосибирск", meta:"медицинский центр · 4 эт. · 20 м",
@@ -890,12 +916,15 @@
     return b;
   }
 
-  // a slide album: one frame at a time, every frame the same size
-  function carousel(p){
+  // a slide album: one frame at a time, every frame the same size.
+  // `list` limits it to some frames of the record; `ratio` sets the stage shape.
+  function carousel(p, list, ratio){
+    var idxs = list || p.imgs.map(function(_, i){ return i; });
     var cur = 0;
     var wrap = el("div", "cs");
 
     var stage = el("div", "cs-stage");
+    if(ratio) stage.style.aspectRatio = ratio;
     var open = el("button", "cs-open");
     open.type = "button";
     var img = document.createElement("img");
@@ -921,10 +950,10 @@
 
     // one tick per slide: shows position in the album and jumps straight to it
     var ticks = el("div", "cs-ticks");
-    var tickBtns = p.imgs.map(function(rec, i){
+    var tickBtns = idxs.map(function(gi, i){
       var t = el("button");
       t.type = "button";
-      t.setAttribute("aria-label", "Слайд " + (i + 1) + (rec.s ? " · " + rec.s : ""));
+      t.setAttribute("aria-label", "Кадр " + (i + 1) + " из " + idxs.length);
       t.addEventListener("click", function(){ go(i); });
       ticks.appendChild(t);
       return t;
@@ -932,11 +961,11 @@
     wrap.appendChild(ticks);
 
     function paint(){
-      var rec = p.imgs[cur];
+      var rec = p.imgs[idxs[cur]];
       img.src = src(rec.i);
       img.setAttribute("data-kind", rec.k);
       img.alt = rec.c || (p.t + " — слайд " + (cur + 1));
-      idx.textContent = pad(cur + 1) + " / " + pad(p.imgs.length);
+      idx.textContent = pad(cur + 1) + " / " + pad(idxs.length);
       series.textContent = rec.s || "";
       cap.textContent = rec.c || "";
       open.setAttribute("aria-label", "Открыть слайд " + (cur + 1) + " во весь экран");
@@ -944,14 +973,20 @@
         if(i === cur) t.setAttribute("aria-current", "true");
         else t.removeAttribute("aria-current");
       });
-      var nx = p.imgs[(cur + 1) % p.imgs.length];
+      var nx = p.imgs[idxs[(cur + 1) % idxs.length]];
       if(nx){ var pre = new Image(); pre.src = src(nx.i); }
     }
-    function go(i){ cur = (i + p.imgs.length) % p.imgs.length; paint(); }
+    function go(i){ cur = (i + idxs.length) % idxs.length; paint(); }
 
     prev.addEventListener("click", function(){ go(cur - 1); });
     next.addEventListener("click", function(){ go(cur + 1); });
-    open.addEventListener("click", function(){ ltOpen(p, cur, open, go); });
+    open.addEventListener("click", function(){
+      ltOpen(p, idxs[cur], open, function(gi){
+        // follow the viewer only while it stays inside this album
+        var at = idxs.indexOf(gi);
+        if(at !== -1) go(at);
+      });
+    });
 
     wrap.addEventListener("keydown", function(e){
       if(lt.getAttribute("data-open") === "true") return;
@@ -1002,18 +1037,36 @@
       filled = true;
       // a slide album pages one frame at a time; a photo set spreads into a mosaic
       if(p.carousel){ body.appendChild(carousel(p)); return; }
-      var mosaic = el("div", "f-mosaic");
+
+      // a series listed in p.albums is a sheet set: it pages instead of spreading
+      var albums = [], photos = [];
       seriesOf(p).forEach(function(grp){
-        if(grp.name){
-          var h = el("div", "f-series", grp.name);
-          h.appendChild(el("span", "n", String(grp.imgs.length).padStart(2, "0")));
-          mosaic.appendChild(h);
-        }
-        grp.imgs.forEach(function(item){
-          mosaic.appendChild(thumb(p, item.rec, item.idx));
-        });
+        if(p.albums && p.albums[grp.name]) albums.push(grp); else photos.push(grp);
       });
-      body.appendChild(mosaic);
+
+      if(photos.length){
+        var mosaic = el("div", "f-mosaic");
+        photos.forEach(function(grp){
+          if(grp.name){
+            var h = el("div", "f-series", grp.name);
+            h.appendChild(el("span", "n", pad(grp.imgs.length)));
+            mosaic.appendChild(h);
+          }
+          grp.imgs.forEach(function(item){
+            mosaic.appendChild(thumb(p, item.rec, item.idx));
+          });
+        });
+        body.appendChild(mosaic);
+      }
+
+      albums.forEach(function(grp){
+        var h = el("div", "f-series f-series-solo", grp.name);
+        h.appendChild(el("span", "n", pad(grp.imgs.length)));
+        body.appendChild(h);
+        body.appendChild(carousel(p,
+          grp.imgs.map(function(item){ return item.idx; }),
+          p.albums[grp.name]));
+      });
     }
     row.addEventListener("click", function(){
       var open = panel.getAttribute("data-open") === "true";
