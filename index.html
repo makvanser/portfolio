@@ -193,6 +193,15 @@
   }
   .f-note{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--stone);padding-bottom:16px;}
 
+  /* narrow screens: the numeral keeps its column, title and meta stack beside it */
+  @media (max-width:680px){
+    .f-row{grid-template-columns:auto 1fr;gap:5px 13px;align-items:start;}
+    .f-row .yr{grid-row:1 / span 2;line-height:1;}
+    .f-row .ttl{grid-column:2;}
+    .f-row .sig{grid-column:2;white-space:normal;}
+    .f-row .lead-mark,.f-row .award-mark,.f-row .co-mark{margin-left:0;display:block;margin-top:3px;}
+  }
+
   /* every frame opens full screen */
   .f-light{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;
     background:rgba(10,9,8,.97);color:var(--paper);}
