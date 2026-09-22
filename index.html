@@ -88,9 +88,6 @@
   @media (prefers-reduced-motion: no-preference){
     .imgph img{transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .22s ease;}
 
-    .reveal{opacity:0;transform:translateY(20px);
-      transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);}
-    .reveal.in{opacity:1;transform:none;}
   }
 
   /* ======================================================
@@ -246,15 +243,6 @@
     clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 
 
-  .f-strip{position:relative;min-height:62dvh;overflow:hidden;background:var(--ink);}
-  .f-strip .imgph{position:absolute;inset:0;}
-  .f-strip .f-thumb{border:0;padding:0;margin:0;width:100%;cursor:zoom-in;}
-  /* the caption sits over the whole strip, so let clicks reach the frame under it */
-  .f-strip .cap{pointer-events:none;position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;
-    padding:clamp(20px,4vw,52px);}
-  .f-strip.right .cap{justify-content:flex-end;text-align:right;}
-  .f-strip .cap span{pointer-events:auto;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.05em;
-    color:var(--paper);background:rgba(10,9,8,.5);padding:6px 10px;}
 
   /* résumé — the record behind the archive, on the same off-black ground */
   .f-resume{background:var(--ink);color:var(--paper);
@@ -342,7 +330,6 @@
     <p class="f-note">Запись вида 2025–26 означает, что работа шла два года.</p>
   </section>
 
-  <div id="f-works" data-fworks></div>
   <div class="f-about" id="f-about" data-about="f"></div>
 
   <section class="f-resume" id="f-resume">
@@ -834,26 +821,6 @@
   }
 
 
-  var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // scroll reveal
-  var revealObs = null;
-  if(!REDUCED && "IntersectionObserver" in window){
-    revealObs = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(en.isIntersecting){ en.target.classList.add("in"); revealObs.unobserve(en.target); }
-      });
-    }, {rootMargin:"0px 0px -8% 0px", threshold:0.06});
-  }
-  function reveal(node, delay){
-    if(!revealObs){ return node; }
-    node.classList.add("reveal");
-    if(delay) node.style.transitionDelay = delay + "ms";
-    revealObs.observe(node);
-    return node;
-  }
-
-
   // ---------- fullscreen viewer ----------
   var lt = document.querySelector("[data-light]");
   var ltImg = lt.querySelector("[data-lt-img]");
@@ -1186,32 +1153,6 @@
   });
   applyOrder("new");
 
-  var fWorks = document.querySelector("[data-fworks]");
-  // img: what the strip shows; i: the album frame the click opens at
-  [{pid:"safa", i:"sf-07", img:"sf-aerial", c:"Safa Climate Commons, Дубай — парк с воздуха на закате"},
-   {pid:"bertha", i:"be-10", c:"Bertha Village — проход между блоками"},
-   {pid:"biota", i:"bi-15", c:"Biota — общий вид на фоне города"}].forEach(function(w, wi){
-    var strip = el("section", "f-strip" + (wi % 2 ? " right" : ""));
-    var p = byId[w.pid];
-    var at = 0;
-    p.imgs.forEach(function(rec, ri){ if(rec.i === w.i) at = ri; });
-
-    var box = el("button", "imgph f-thumb");
-    box.type = "button";
-    box.setAttribute("aria-label", "Открыть кадр во весь экран: " + w.c);
-    var im2 = document.createElement("img");
-    im2.src = src(w.img || w.i);
-    im2.alt = w.c;
-    im2.loading = "lazy";
-    box.appendChild(im2);
-    box.addEventListener("click", function(){ ltOpen(p, at, box); });
-    strip.appendChild(box);
-
-    var cap = el("div", "cap");
-    cap.appendChild(el("span", null, w.c));
-    strip.appendChild(cap);
-    fWorks.appendChild(reveal(strip, 0));
-  });
 
 
   aboutBlock(document.querySelector("[data-about]"), {heading: "Об авторе"});
