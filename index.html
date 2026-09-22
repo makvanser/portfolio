@@ -158,6 +158,8 @@
   .f-panel[data-open="true"]{max-height:12000px;}
   .f-desc{max-width:68ch;margin:18px 0 4px;font-size:15px;line-height:1.64;color:#B9AFA0;text-wrap:pretty;}
   .f-desc b{color:var(--paper);font-weight:600;}
+  .f-desc a{color:var(--brick);text-decoration:none;border-bottom:1px solid rgba(173,94,47,.5);}
+  .f-desc a:hover{border-bottom-color:var(--brick);}
 
   /* carousel — every record pages through its frames, each one the same size */
   .cs{padding:16px 0 clamp(18px,3vw,32px);--r:1.78;}
@@ -752,7 +754,13 @@
     {id:"bertha", y:[2025,2026], ratio:"1.6", code:"PRJ–01", num:"01", t:"Bertha Village, Кипр", meta:"жилой комплекс для пожилых людей · Кипр",
      group:"practice", cat:"built", tag:"построено", catLabel:"построено · жилой комплекс",
      lead:true, leadNote:"последняя работа",
-     notes:{"Первые варианты кластеров":"Этот вариант домов заказчик прислал на адаптацию. Внешний образ был уже сформирован, и я вписывал в него новые планировки по техническому заданию: студии, одно-, двух- и трёхкомнатные квартиры. Рендеры этих домов тоже делал я."},
+     notes:{
+       "Первые варианты кластеров":"Этот вариант домов заказчик прислал на адаптацию. Внешний образ был уже сформирован, и я вписывал в него новые планировки по техническому заданию: студии, одно-, двух- и трёхкомнатные квартиры. Рендеры этих домов тоже делал я.",
+       "Утверждённый вариант":"В итоге мы убедили заказчика, что лучше разработать новые типологии домов, чем вписываться в старые контуры. Так получилась более ясная, унифицированная типология одно- и двухкомнатных квартир, которая лучше отвечала его техническому заданию. Из этого родилась идея минималистичных домов в таком стиле.",
+       "Чертежи, жилой блок A":"Примеры рабочей документации, которую я разработал для жилого блока A.",
+       "Интерьеры":"Кроме архитектурного раздела я выполнял раздел интерьеров. Для заказчика мы подготовили интерьеры в нескольких стилях, чтобы у него был выбор.",
+       "Ресторан":"Здесь я делал только рендеры и постобработку."
+     },
      desc:"<b>Bertha Village — жилой комплекс для пожилых людей на Кипре.</b> Проект посажен в естественный рельеф участка, с расчётом на приватность, доступность и визуальную связь с ландшафтом. В рамках проекта я занимался разработкой концепции и рабочей документации жилых модулей, включая планировочные решения, фасады и адаптацию зданий к сложному рельефу.",
      imgs:BE},
     {id:"clinic", y:[2020], ratio:"1.78", code:"PRJ–02", num:"02", t:"Поликлиника, Новосибирск", meta:"медицинский центр · 4 эт. · 20 м",
@@ -771,7 +779,7 @@
      imgs:SF},
     {id:"biota", y:[2023], ratio:"1.78", code:"PRJ–04", num:"04", t:"Biota", meta:"AIxBiomimicry",
      group:"competition", cat:"competition", tag:"конкурс · AIxBiomimicry", catLabel:"конкурс · AIxBiomimicry",
-     desc:"«Biota» построена на трёх принципах. Кристаллическая форма взята от костной структуры птиц и делает объём лёгким. Внешний фасад по мотивам медузы пропускает естественный свет. Внутри биолюминесценция: эффект погружения в светящийся подводный мир. В основе всего биомимикрия; в составе комплекса музей природы и мультимедийный центр.",
+     desc:"«Biota» построена на трёх принципах. Кристаллическая форма взята от костной структуры птиц и делает объём лёгким. Внешний фасад по мотивам медузы пропускает естественный свет. Внутри биолюминесценция: эффект погружения в светящийся подводный мир. В основе всего биомимикрия; в составе комплекса музей природы и мультимедийный центр.<br><br>Публикация: <a href='https://archi.ru/russia/99822/priroda-podsoznatelnoe-i-master-plan' target='_blank' rel='noopener'>Архи.ру, «Биомимикрия, подсознательное и мастер-план»</a>",
      imgs:BI},
     {id:"barcelona", y:[2026], ratio:"1", code:"PRJ–05", num:"05", t:"Barcelona 2051", meta:"исследование · 8 планшетов",
      group:"competition", cat:"competition", tag:"исследование", catLabel:"исследование",
@@ -783,7 +791,7 @@
      imgs:RF},
     {id:"eclipse", y:[2023], ratio:"1.4", code:"PRJ–07", num:"07", t:"Hall of Eclipse", meta:"Metaverse Architecture Biennale",
      group:"competition", cat:"competition", tag:"конкурс · Metaverse Biennale", catLabel:"конкурс · Metaverse Biennale",
-     desc:"«Hall of Eclipse» — метафора метавселенных. В мире «Ephemeral Stream» можно погрузиться в медитативный оазис, побродить по библиотеке мыслей и заблудиться в облаке мечтаний. В центральной вселенной, исследуя таинственные пространства среди облаков и гладких форм, каждый завершает своё медитативное путешествие и взаимодействует с этим миром.",
+     desc:"Проект сделан вместе с бюро Space Lane для первой архитектурной биеннале в метавселенной, <b>Metaverse Architecture Biennale «Presence of the Future»</b>. Она прошла онлайн с 21 сентября по 6 октября 2023 года: павильоны стояли на платформах Decentraland и W3rlds, организаторы — Dearch Space, Metancy и W3rlds.<br><br>«Hall of Eclipse» — метафора метавселенных. В мире «Ephemeral Stream» можно погрузиться в медитативный оазис, побродить по библиотеке мыслей и заблудиться в облаке мечтаний. В центральной вселенной, исследуя таинственные пространства среди облаков и гладких форм, каждый завершает своё медитативное путешествие и взаимодействует с этим миром.<br><br>Ссылки: <a href='https://archi.ru/russia/98985/sny-o-vselennoi' target='_blank' rel='noopener'>Архи.ру, «Сны о вселенной»</a> · <a href='https://metaversearchbiennale.com/' target='_blank' rel='noopener'>сайт биеннале</a> · <a href='https://www.archdaily.com/1006995/the-first-metaverse-architecture-biennale' target='_blank' rel='noopener'>ArchDaily</a> · <a href='https://decentraland.org/blog/announcements/the-ultimate-guide-to-metaverse-architecture-biennale-23' target='_blank' rel='noopener'>гид Decentraland</a>",
      imgs:EC},
     {id:"hetao", y:[2026], ratio:"1.4", code:"PRJ–08", num:"08", t:"Hetao Vision", meta:"конкурс AI-видео · UABBHK 2025",
      group:"competition", cat:"competition", tag:"финалист", catLabel:"конкурс · финалист",
@@ -796,7 +804,7 @@
      imgs:AM},
     {id:"mavridis", y:[2025], ratio:"1.78", code:"PRJ–10", num:"10", t:"Mavridis", meta:"торговый комплекс · для бюро",
      group:"render", cat:"render", tag:"рендер для бюро", catLabel:"рендер для бюро",
-     desc:"Протяжённый объём со сводчатой галереей и вечерней подсветкой витрин.",
+     desc:"Торговый комплекс в Дубае. Я делал только архитектурную визуализацию.",
      imgs:MV},
     {id:"echo", y:[2024], ratio:"1.7", code:"PRJ–11", num:"11", t:"Эхо Табахмеле", meta:"рендер для бюро · инсталляции",
      group:"render", cat:"render", tag:"рендер для бюро", catLabel:"рендер для бюро",
@@ -804,7 +812,7 @@
      imgs:ET},
     {id:"krym", y:[2025], ratio:"1.78", code:"PRJ–12", num:"12", t:"Крым, прибрежный комплекс", meta:"видео · для бюро",
      group:"render", cat:"render", tag:"рендер для бюро · видео", catLabel:"рендер для бюро · видео",
-     desc:"Жилой комплекс на склоне у моря. Ролик 21 секунда, летний день.",
+     desc:"Отельный комплекс в Крыму с апартаментами и коммерческими помещениями. Я делал только архитектурную визуализацию, а из рендеров потом собрал этот ролик.",
      imgs:KR}
   ];
 
@@ -1148,7 +1156,8 @@
   applyOrder("new");
 
   var fWorks = document.querySelector("[data-fworks]");
-  [{pid:"bertha", i:"be-01", c:"Bertha Village — первый вариант кластеров"},
+  // img: what the strip shows; i: the album frame the click opens at
+  [{pid:"safa", i:"sf-07", img:"sf-aerial", c:"Safa Climate Commons, Дубай — парк с воздуха на закате"},
    {pid:"bertha", i:"be-10", c:"Bertha Village — проход между блоками"},
    {pid:"biota", i:"bi-15", c:"Biota — общий вид на фоне города"}].forEach(function(w, wi){
     var strip = el("section", "f-strip" + (wi % 2 ? " right" : ""));
@@ -1160,7 +1169,7 @@
     box.type = "button";
     box.setAttribute("aria-label", "Открыть кадр во весь экран: " + w.c);
     var im2 = document.createElement("img");
-    im2.src = src(w.i);
+    im2.src = src(w.img || w.i);
     im2.alt = w.c;
     im2.loading = "lazy";
     box.appendChild(im2);
