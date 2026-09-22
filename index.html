@@ -17,38 +17,37 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0908'/><text x='16' y='23' font-family='system-ui,sans-serif' font-size='19' font-weight='300' fill='%23F1EEE8' text-anchor='middle'>И</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Onest:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/hero.webp" fetchpriority="high">
 <style>
   *,*::before,*::after{box-sizing:border-box;}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;}}
   body{margin:0;background:#F1EEE8;color:#0A0908;
-    font-family:"Familjen Grotesk",system-ui,sans-serif;
+    font-family:"Onest",system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
   img{max-width:100%;}
   [hidden]{display:none !important;}
+  /* brick is decorative (rules, fills, focus); brick-ink is brick as text on dark;
+     brick-fill is brick behind paper text. Both clear 4.5:1. */
+  :root{--paper:#F1EEE8;--ink:#0A0908;--brick:#AD5E2F;--brick-deep:#7A2F18;--stone:#8A7F72;
+    --brick-ink:#BA6838;--brick-fill:#9D5428;}
   :focus-visible{outline:2px solid #AD5E2F;outline-offset:3px;}
-  ::selection{background:#AD5E2F;color:#F1EEE8;}
+  ::selection{background:#9D5428;color:#F1EEE8;}
 
   /* shared image frame */
   .imgph{position:relative;overflow:hidden;background:#0C0C0A;}
   .imgph img{width:100%;height:100%;object-fit:cover;display:block;}
   .imgph img[data-kind="poster"]{object-position:center 22%;}
   .imgph img[data-kind="plan"]{object-fit:contain;background:#F1EFE8;}
-  .lead-mark,.award-mark{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;
+  .lead-mark,.award-mark{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;
     text-transform:uppercase;white-space:nowrap;}
-  .f-row .lead-mark{color:var(--brick);margin-left:10px;}
-  .f-row .award-mark{color:var(--brick);margin-left:10px;}
-  .co-mark{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;
+  .f-row .lead-mark{color:var(--brick-ink);margin-left:10px;}
+  .f-row .award-mark{color:var(--brick-ink);margin-left:10px;}
+  .co-mark{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;
     text-transform:uppercase;white-space:nowrap;}
   .f-row .co-mark{color:var(--stone);margin-left:10px;}
-  .vid-badge{position:absolute;left:8px;top:8px;font-family:"IBM Plex Mono",monospace;font-size:10px;
-    letter-spacing:.08em;background:#C1442F;color:#F2EFE8;padding:3px 8px;border-radius:2px;}
 
-  /* grain: breaks the flatness of large photographic fields */
-  .grain{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.16;mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.55'/></svg>");}
 
   /* skip link */
   .skip{position:absolute;left:-9999px;top:0;z-index:60;background:#0A0908;color:#F1EEE8;
@@ -60,11 +59,11 @@
   .ab-portrait img{width:100%;height:100%;object-fit:cover;}
   .ab-body{min-width:0;}
   .ab-h{margin:0 0 14px;}
-  .ab-lead{margin:0 0 14px;font-weight:600;}
+  .ab-lead{margin:0 0 14px;font-weight:600;max-width:62ch;}
   .ab-p{margin:0 0 12px;max-width:62ch;line-height:1.62;text-wrap:pretty;}
   .ab-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
   .ab-btn{display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;
-    font-family:"Familjen Grotesk",sans-serif;font-size:13.5px;font-weight:600;
+    font-family:"Onest",sans-serif;font-size:13.5px;font-weight:600;
     padding:11px 18px;border-radius:2px;border:1px solid transparent;}
   @media (prefers-reduced-motion: no-preference){
     .ab-btn{transition:background .2s,color .2s,border-color .2s,transform .12s;}
@@ -78,7 +77,7 @@
   .f-about .ab-h{font-family:"Onest",sans-serif;font-weight:500;font-size:clamp(23px,3.6vw,40px);letter-spacing:-0.01em;}
   .f-about .ab-lead{font-size:16.5px;}
   .f-about .ab-p{font-size:15px;color:#4B4339;}
-  .f-about .ab-btn.primary{background:var(--brick);color:var(--paper);}
+  .f-about .ab-btn.primary{background:var(--brick-fill);color:var(--paper);}
   .f-about .ab-btn.primary:hover{background:var(--brick-deep);}
   .f-about .ab-btn.ghost{border-color:#CFC7B8;color:var(--ink);}
   .f-about .ab-btn.ghost:hover{border-color:var(--ink);}
@@ -102,8 +101,8 @@
      Deviation from the reference: it uses pure #000; this uses a
      warm off-black, per the redesign audit.
      ====================================================== */
-  .stage-f{--paper:#F1EEE8;--ink:#0A0908;--brick:#AD5E2F;--brick-deep:#7A2F18;--stone:#8A7F72;
-    background:var(--paper);color:var(--ink);font-family:"Familjen Grotesk",sans-serif;}
+  .stage-f{
+    background:var(--paper);color:var(--ink);font-family:"Onest",sans-serif;}
 
   .f-hero{position:relative;min-height:100dvh;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;}
   .f-hero .f-shot{position:absolute;inset:0;background:var(--ink);}
@@ -119,7 +118,8 @@
   .f-nav{position:relative;z-index:2;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px clamp(12px,3vw,40px);
     padding:11px clamp(16px,4vw,48px);border-top:1px solid rgba(241,238,232,.5);
     background:rgba(10,9,8,.62);font-size:13px;color:var(--paper);}
-  .f-nav a{color:inherit;text-decoration:none;opacity:.82;}
+  .f-nav a{color:inherit;text-decoration:none;opacity:.82;position:relative;}
+  .f-nav a::after,.f-footer a::after{content:"";position:absolute;inset:-13px -6px;}
   .f-nav a:hover{opacity:1;}
   .f-nav .on{display:inline-flex;align-items:center;gap:7px;opacity:1;}
   .f-nav .on::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--paper);}
@@ -135,11 +135,11 @@
   .f-sort button{background:none;border:0;padding:5px 0;cursor:pointer;font:inherit;
     color:#C4BBAE;border-bottom:1px solid transparent;}
   .f-sort button:hover{color:var(--paper);}
-  .f-sort button[aria-pressed="true"]{color:var(--brick);border-bottom-color:var(--brick);}
+  .f-sort button[aria-pressed="true"]{color:var(--brick-ink);border-bottom-color:var(--brick);}
   @media (prefers-reduced-motion: no-preference){
     .f-sort button{transition:color .2s,border-color .2s;}
   }
-  .f-row{display:grid;grid-template-columns:minmax(70px,11vw) 1fr auto;gap:clamp(12px,3vw,40px);align-items:baseline;
+  .f-row{display:grid;grid-template-columns:minmax(70px,11vw) auto 1fr auto;gap:clamp(12px,3vw,40px);align-items:baseline;
     width:100%;padding:clamp(14px,2.2vw,26px) 0;border:0;border-top:1px solid rgba(241,238,232,.15);
     background:none;text-align:left;color:inherit;cursor:pointer;font:inherit;}
   .f-row:hover{border-top-color:rgba(241,238,232,.42);}
@@ -147,18 +147,25 @@
     line-height:.88;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;}
   .f-row .ttl{font-size:clamp(15px,1.9vw,23px);line-height:1.2;text-wrap:balance;}
   .f-row .sig-y{color:#C4BBAE;font-weight:400;}
-  .f-row[aria-expanded="true"] .sig-y{color:var(--brick);}
+  .f-row[aria-expanded="true"] .sig-y{color:var(--brick-ink);}
   .f-row .sig{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--stone);white-space:nowrap;
     font-variant-numeric:tabular-nums;}
   .f-row[aria-expanded="true"] .yr{color:var(--brick);}
-  .f-row[aria-expanded="true"] .sig{color:var(--brick);}
+  .f-row[aria-expanded="true"] .sig{color:var(--brick-ink);}
   .f-rowset:last-child .f-row{border-bottom:1px solid rgba(241,238,232,.15);}
+  .f-rowset:first-child .f-row{border-top:0;}
+  .f-row .th{width:clamp(88px,8.5vw,124px);aspect-ratio:16/10;object-fit:cover;display:block;
+    background:#141210;align-self:center;}
   .f-rowset[data-open="true"] .f-row{border-bottom:0;}
   .f-panel{overflow:hidden;max-height:0;}
   .f-panel[data-open="true"]{max-height:12000px;}
   .f-desc{max-width:68ch;margin:18px 0 4px;font-size:15px;line-height:1.64;color:#B9AFA0;text-wrap:pretty;}
   .f-desc b{color:var(--paper);font-weight:600;}
-  .f-desc a{color:var(--brick);text-decoration:none;border-bottom:1px solid rgba(173,94,47,.5);}
+  .f-more{background:none;border:0;padding:6px 0;margin:0 0 6px;cursor:pointer;
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.04em;
+    color:var(--brick-ink);border-bottom:1px solid rgba(186,104,56,.5);}
+  .f-more:hover{border-bottom-color:var(--brick-ink);}
+  .f-desc a{color:var(--brick-ink);text-decoration:none;border-bottom:1px solid rgba(186,104,56,.5);}
   .f-desc a:hover{border-bottom-color:var(--brick);}
 
   /* carousel — every record pages through its frames, each one the same size */
@@ -175,11 +182,11 @@
     width:clamp(40px,3.4vw,46px);height:clamp(40px,3.4vw,46px);border-radius:50%;
     border:1px solid rgba(241,238,232,.32);background:rgba(10,9,8,.55);
     color:var(--paper);font-size:19px;line-height:1;cursor:pointer;}
-  .cs-nav:hover{background:var(--brick);border-color:var(--brick);}
+  .cs-nav:hover{background:var(--brick-fill);border-color:var(--brick-fill);}
   .cs-prev{left:clamp(8px,1.2vw,16px);}
   .cs-next{right:clamp(8px,1.2vw,16px);}
   .cs-bar{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:12px 0 10px;}
-  .cs-idx{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--brick);
+  .cs-idx{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--brick-ink);
     font-variant-numeric:tabular-nums;}
   .cs-series{font-weight:600;font-size:14px;color:var(--paper);}
   .cs-cap{font-size:14px;color:#B9AFA0;text-wrap:pretty;}
@@ -199,10 +206,11 @@
 
   /* narrow screens: the numeral keeps its column, title and meta stack beside it */
   @media (max-width:680px){
-    .f-row{grid-template-columns:auto 1fr;gap:5px 13px;align-items:start;}
+    .f-row{grid-template-columns:auto 1fr auto;gap:5px 13px;align-items:start;}
     .f-row .yr{grid-row:1 / span 2;line-height:1;}
-    .f-row .ttl{grid-column:2;}
-    .f-row .sig{grid-column:2;white-space:normal;}
+    .f-row .th{grid-column:3;grid-row:1 / span 2;width:72px;}
+    .f-row .ttl{grid-column:2;grid-row:1;}
+    .f-row .sig{grid-column:2;grid-row:2;white-space:normal;}
     .f-row .lead-mark,.f-row .award-mark,.f-row .co-mark{margin-left:0;display:block;margin-top:3px;}
   }
 
@@ -226,28 +234,23 @@
     width:clamp(40px,4.4vw,50px);height:clamp(40px,4.4vw,50px);border-radius:50%;
     border:1px solid rgba(241,238,232,.3);background:rgba(10,9,8,.6);color:var(--paper);
     font-size:20px;line-height:1;cursor:pointer;}
-  .lt-nav:hover{background:var(--brick);border-color:var(--brick);}
+  .lt-nav:hover{background:var(--brick-fill);border-color:var(--brick-fill);}
   .lt-prev{left:clamp(8px,1.6vw,20px);}
   .lt-next{right:clamp(8px,1.6vw,20px);}
   .lt-cap{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;
     padding:clamp(11px,1.8vw,18px) clamp(14px,3vw,28px) clamp(16px,2.6vw,26px);}
-  .lt-series{font-family:"Familjen Grotesk",sans-serif;font-weight:600;font-size:14px;}
+  .lt-series{font-family:"Onest",sans-serif;font-weight:600;font-size:14px;}
   .lt-text{font-size:14px;color:#B9AFA0;max-width:70ch;}
   body.locked{overflow:hidden;}
+  .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 
-  .f-bio{padding:clamp(56px,9vw,132px) clamp(16px,4vw,48px);max-width:1400px;margin:0 auto;}
-  .f-statement{font-family:"Onest",system-ui,sans-serif;font-weight:400;
-    font-size:clamp(26px,4.6vw,62px);line-height:1.08;letter-spacing:-0.018em;margin:0 0 clamp(30px,4vw,56px);
-    max-width:17ch;text-wrap:balance;}
-  .f-statement em{font-style:normal;color:var(--brick);}
-  .f-bio-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,64px);max-width:1000px;}
-  .f-bio-cols p{margin:0;font-size:15.5px;line-height:1.62;color:#4B4339;max-width:62ch;text-wrap:pretty;}
-  @media (max-width:720px){.f-bio-cols{grid-template-columns:1fr;}}
 
   .f-strip{position:relative;min-height:62dvh;overflow:hidden;background:var(--ink);}
   .f-strip .imgph{position:absolute;inset:0;}
+  .f-strip .f-thumb{border:0;padding:0;margin:0;width:100%;cursor:zoom-in;}
   /* the caption sits over the whole strip, so let clicks reach the frame under it */
-  .f-strip .cap{pointer-events:none;position:relative;z-index:2;height:100%;display:flex;align-items:flex-end;
+  .f-strip .cap{pointer-events:none;position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;
     padding:clamp(20px,4vw,52px);}
   .f-strip.right .cap{justify-content:flex-end;text-align:right;}
   .f-strip .cap span{pointer-events:auto;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.05em;
@@ -262,8 +265,8 @@
   .rs-head h2{font-family:"Onest",system-ui,sans-serif;font-weight:300;margin:0;
     font-size:clamp(34px,6.4vw,88px);line-height:.9;letter-spacing:-0.022em;}
   .rs-dl{display:inline-flex;align-items:center;gap:9px;text-decoration:none;
-    background:var(--brick);color:var(--paper);font-weight:600;font-size:13.5px;
-    padding:11px 18px;border-radius:2px;border:1px solid var(--brick);}
+    background:var(--brick-fill);color:var(--paper);font-weight:600;font-size:13.5px;
+    padding:11px 18px;border-radius:2px;border:1px solid var(--brick-fill);}
   .rs-dl:hover{background:var(--brick-deep);border-color:var(--brick-deep);}
   .rs-lede{margin:clamp(14px,2vw,20px) 0 clamp(26px,4vw,46px);color:#C4BBAE;
     font-size:clamp(15px,1.6vw,18px);line-height:1.6;max-width:60ch;text-wrap:pretty;}
@@ -279,16 +282,16 @@
     line-height:1.5;font-variant-numeric:tabular-nums;}
   .rs-when b{display:block;color:#C4BBAE;font-weight:400;}
   .rs-role{margin:0;font-size:clamp(15px,1.7vw,18px);line-height:1.3;}
-  .rs-org{color:var(--brick);}
+  .rs-org{color:var(--brick-ink);}
   .rs-what{margin:6px 0 0;font-size:14px;line-height:1.6;color:#B9AFA0;max-width:70ch;text-wrap:pretty;}
   .rs-side section + section{margin-top:clamp(24px,3.4vw,38px);}
   .rs-item{padding:9px 0;border-top:1px solid rgba(241,238,232,.13);font-size:14px;line-height:1.5;}
   .rs-item:first-of-type{border-top:0;}
   .rs-item span{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;
     color:var(--stone);margin-bottom:3px;}
-  .rs-item a{color:var(--brick);text-decoration:none;border-bottom:1px solid rgba(173,94,47,.5);}
+  .rs-item a{color:var(--brick-ink);text-decoration:none;border-bottom:1px solid rgba(186,104,56,.5);}
   .rs-item a:hover{border-bottom-color:var(--brick);}
-  .rs-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .rs-tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;padding:0;}
   .rs-tags li{list-style:none;font-size:12.5px;padding:5px 10px;border-radius:2px;
     border:1px solid rgba(241,238,232,.2);color:#C4BBAE;}
   @media (max-width:900px){.rs-cols{grid-template-columns:1fr;}}
@@ -298,7 +301,7 @@
   .f-footer .fw{font-family:"Onest",system-ui,sans-serif;font-weight:300;font-size:clamp(34px,7vw,96px);
     line-height:.9;letter-spacing:-0.022em;margin:0 0 clamp(20px,3vw,38px);}
   .f-footer .fl{display:flex;flex-wrap:wrap;gap:14px 40px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;}
-  .f-footer a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(241,238,232,.45);padding-bottom:2px;}
+  .f-footer a{position:relative;color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(241,238,232,.45);padding-bottom:2px;}
   .f-footer a:hover{border-bottom-color:var(--paper);}
 
   @media (prefers-reduced-motion: no-preference){
@@ -315,17 +318,19 @@
   <header class="f-hero">
     <div class="f-shot"><img data-f-hero fetchpriority="high" decoding="async" alt="Barcelona 2051 — пористая структура над городом, вид с воздуха"></div>
     <div class="f-veil"></div>
-    <h1 class="f-name f-name-top">Иван</h1>
+    <h1 class="sr-only">Иван Макогон — архитектор</h1>
+    <p class="f-name f-name-top" aria-hidden="true">Иван</p>
     <nav class="f-nav">
       <a class="on" href="#f-archive">Работы</a>
       <a href="#f-about">Об авторе</a>
       <a href="#f-resume">Резюме</a>
       <a href="#f-contact">Связаться</a>
     </nav>
-    <h1 class="f-name f-name-bottom">Макогон</h1>
+    <p class="f-name f-name-bottom" aria-hidden="true">Макогон</p>
   </header>
 
   <section class="f-timeline" id="f-archive">
+    <h2 class="sr-only">Архив работ</h2>
     <p class="f-lede"><b>Архив работ.</b> В основном творческие работы для конкурсов и архитектурных бюро. Проектную и рабочую документацию присылаю по запросу. Нажмите на название проекта, чтобы раскрыть его материалы.</p>
     <div class="f-sort" role="group" aria-label="Порядок записей">
       <span class="f-sort-l">Порядок</span>
@@ -335,10 +340,6 @@
     </div>
     <div data-ftimeline></div>
     <p class="f-note">Запись вида 2025–26 означает, что работа шла два года.</p>
-  </section>
-
-  <section class="f-bio" id="f-bio">
-    <p class="f-statement">Архитектура, дизайн и <em>урбанистика</em></p>
   </section>
 
   <div id="f-works" data-fworks></div>
@@ -510,7 +511,7 @@
     <p class="fw">Открыт к работе</p>
     <div class="fl">
       <a href="mailto:makvanser@gmail.com">makvanser@gmail.com</a>
-      <a href="tel:+995595906096">+995 595 90 60 96</a>
+      <a href="tel:+995595906096">+995 595 90 60 96</a>
       <a href="https://t.me/makvanser" target="_blank" rel="noopener">@makvanser</a>
       <a href="https://t.me/ai_architecture_prompt" target="_blank" rel="noopener">канал AI Architecture Prompt</a>
     </div>
@@ -534,7 +535,6 @@
   </div>
 </div>
 
-<div class="grain" aria-hidden="true"></div>
 <script>
 (function(){
   "use strict";
@@ -739,7 +739,7 @@
     im("sf-19","slide","","AI-процесс"),
     im("sf-20","slide","Проверка человеком: как фильтровались результаты ИИ","AI-процесс"),
     im("sf-21","slide","Раздел: мастер-план","Мастер-план"),
-    im("sf-22","slide","Итоговый мастер-план с легендой, 15 000 м²","Мастер-план"),
+    im("sf-22","slide","Итоговый мастер-план с легендой, 15 000 м²","Мастер-план"),
     im("sf-23","slide","Зонирование программы: 11 функций","Мастер-план"),
     im("sf-24","slide","Безбарьерный основной маршрут и второстепенные связи","Мастер-план"),
     im("sf-25","slide","Палитра озеленения: пальмы, широкие кроны, злаки","Материалы и озеленение"),
@@ -772,10 +772,10 @@
      desc:"Трёхэтажная школа высотой 18 метров. Специализированные классы, научные лаборатории, спортивный и актовый залы, вспомогательные и административные помещения. Планировочная структура и формы здания подчинены градостроительным требованиям участка. Фасад — современные материалы и оттенки, подобранные к окружающей застройке.",
      imgs:SC},
 
-    {id:"safa", y:[2026], ratio:"1.78", code:"PRJ–13", num:"13", t:"Safa Climate Commons, Дубай", meta:"конкурс Dubai Municipality · парк 15 000 м²",
+    {id:"safa", cover:"sf-aerial", y:[2026], ratio:"1.78", code:"PRJ–13", num:"13", t:"Safa Climate Commons, Дубай", meta:"конкурс Dubai Municipality · парк 15 000 м²",
      group:"competition", cat:"competition", tag:"конкурс · Dubai AI Park", catLabel:"конкурс · Dubai AI Park",
      co:true, coNote:"в соавторстве",
-     desc:"<b>Safa Climate Commons</b> — конкурсное предложение для Al Safa Park 2 в Дубае: районный парк площадью 15 000 м², концепция и предварительный проект. Dubai Municipality AI Park Design Challenge — конкурс муниципалитета Дубая, где искусственный интеллект нужно было применить как вспомогательный инструмент анализа и проверки решений, а не как замену проектировщику. Призовой фонд 200 000 дирхамов; первое место получает возможность довести проект до пилотного парка.<br><br>Парк собран как последовательность связанных микроклиматов. Его держат две системы: Porous Shade Network — проницаемая сеть затенения, которая смягчает солнце, не закрывая ландшафт, и Recovery Loop — непрерывный безбарьерный маршрут, связывающий пальмовый оазис, заглублённые дворы, приподнятые деки, лужайки и общественные зоны от раннего утра до вечера. Перфорированные экраны по мотивам машрабии фильтруют свет, сохраняют просматриваемость и дают меняющийся рисунок тени.<br><br>В основе — климатический анализ: инсоляция, ветер и тепловой комфорт, разобранный в четырёх сочетаниях солнца, тени и ветрозащиты. Парк затенён неравномерно: каждое пространство получает свой баланс кроны, растительности и открытости в зависимости от экспозиции, функции и времени использования.<br><br>ИИ применялся на исследовательской части: генерация альтернативных планировочных и объёмных решений, сверка их с границами участка, геометрией мастер-плана и данными симуляций. В проект попадали только варианты, прошедшие эту проверку — итоговая геометрия и все архитектурные решения приняты человеком.<br><br>Работа выполнена <b>в соавторстве с Полиной Носиковой</b>. Результаты конкурса на момент публикации не объявлены.",
+     desc:"<b>Safa Climate Commons</b> — конкурсное предложение для Al Safa Park 2 в Дубае: районный парк площадью 15 000 м², концепция и предварительный проект. Dubai Municipality AI Park Design Challenge — конкурс муниципалитета Дубая, где искусственный интеллект нужно было применить как вспомогательный инструмент анализа и проверки решений, а не как замену проектировщику. Призовой фонд 200 000 дирхамов; первое место получает возможность довести проект до пилотного парка.<br><br>Парк собран как последовательность связанных микроклиматов. Его держат две системы: Porous Shade Network — проницаемая сеть затенения, которая смягчает солнце, не закрывая ландшафт, и Recovery Loop — непрерывный безбарьерный маршрут, связывающий пальмовый оазис, заглублённые дворы, приподнятые деки, лужайки и общественные зоны от раннего утра до вечера. Перфорированные экраны по мотивам машрабии фильтруют свет, сохраняют просматриваемость и дают меняющийся рисунок тени.<br><br>В основе — климатический анализ: инсоляция, ветер и тепловой комфорт, разобранный в четырёх сочетаниях солнца, тени и ветрозащиты. Парк затенён неравномерно: каждое пространство получает свой баланс кроны, растительности и открытости в зависимости от экспозиции, функции и времени использования.<br><br>ИИ применялся на исследовательской части: генерация альтернативных планировочных и объёмных решений, сверка их с границами участка, геометрией мастер-плана и данными симуляций. В проект попадали только варианты, прошедшие эту проверку — итоговая геометрия и все архитектурные решения приняты человеком.<br><br>Работа выполнена <b>в соавторстве с Полиной Носиковой</b>. Результаты конкурса на момент публикации не объявлены.",
      imgs:SF},
     {id:"biota", y:[2023], ratio:"1.78", code:"PRJ–04", num:"04", t:"Biota", meta:"AIxBiomimicry",
      group:"competition", cat:"competition", tag:"конкурс · AIxBiomimicry", catLabel:"конкурс · AIxBiomimicry",
@@ -787,7 +787,7 @@
      imgs:BA},
     {id:"regen", y:[2023], ratio:"1.78", code:"PRJ–06", num:"06", t:"EcoSynergy Haven", meta:"конкурс SPACE10 · Regenerative Futures",
      group:"competition", cat:"competition", tag:"конкурс · SPACE10", catLabel:"конкурс · SPACE10",
-     desc:"Конкурсный проект симбиотического города. Дома и общественные пространства построены из экологически чистых материалов и работают на возобновляемой энергии, с технологиями экономии воды и системами управления отходами.<br><br>Зелёные зоны, гидропоника и вертикальное озеленение дают продовольственную независимость. Общие ресурсы, обмен данными и технологиями работают на сообщество и культурное разнообразие.",
+     desc:"Конкурсный проект симбиотического города. Дома и общественные пространства построены из экологически чистых материалов и работают на возобновляемой энергии, с технологиями экономии воды и системами управления отходами.<br><br>Зелёные зоны, гидропоника и вертикальное озеленение дают продовольственную независимость. Жители делят ресурсы и обмениваются данными и технологиями.",
      imgs:RF},
     {id:"eclipse", y:[2023], ratio:"1.4", code:"PRJ–07", num:"07", t:"Hall of Eclipse", meta:"Metaverse Architecture Biennale",
      group:"competition", cat:"competition", tag:"конкурс · Metaverse Biennale", catLabel:"конкурс · Metaverse Biennale",
@@ -895,6 +895,7 @@
     ltPaint();
     lt.setAttribute("data-open", "true");
     document.body.classList.add("locked");
+    document.querySelector("main").inert = true;
     ltClose.focus();
   }
 
@@ -902,6 +903,7 @@
     ltVid.pause();
     lt.removeAttribute("data-open");
     document.body.classList.remove("locked");
+    document.querySelector("main").inert = false;
     if(ltState.from && ltState.from.focus) ltState.from.focus();
     // leave the caller showing whatever frame the viewer ended on
     if(ltState.sync) ltState.sync(ltState.i);
@@ -969,6 +971,8 @@
     next.setAttribute("aria-label", "Следующий слайд");
     stage.appendChild(prev);
     stage.appendChild(next);
+    // a single frame has nowhere to go
+    if(idxs.length < 2){ prev.hidden = true; next.hidden = true; }
     inner.appendChild(stage);
 
     var bar = el("div", "cs-bar");
@@ -996,6 +1000,7 @@
       return t;
     });
     inner.appendChild(ticks);
+    if(idxs.length < 2) ticks.hidden = true;
 
     var note = el("p", "cs-note");
     note.hidden = true;
@@ -1081,6 +1086,13 @@
     row.setAttribute("aria-expanded", "false");
     var numEl = el("span", "yr", pad(i + 1));
     row.appendChild(numEl);
+    // the archive shows a frame of every work, not only its name
+    var th = document.createElement("img");
+    th.className = "th";
+    th.src = src(p.cover || p.imgs[0].i);
+    th.alt = ""; th.loading = "lazy"; th.decoding = "async";
+    th.setAttribute("aria-hidden", "true");
+    row.appendChild(th);
     var mid = el("span", "ttl", p.t);
     if(p.lead) mid.appendChild(el("span", "lead-mark", "· " + p.leadNote));
     if(p.award) mid.appendChild(el("span", "award-mark", "· " + p.awardNote));
@@ -1092,7 +1104,26 @@
     row.appendChild(sig);
 
     var panel = el("div", "f-panel");
-    if(p.desc) panel.appendChild(el("p", "f-desc", p.desc));
+    if(p.desc){
+      var parts = p.desc.split("<br><br>");
+      var plainLen = p.desc.replace(/<[^>]+>/g, "").length;
+      if(parts.length > 1 && plainLen > 700){
+        var dEl = el("p", "f-desc", parts[0]);
+        var rest = el("span", "f-desc-rest", "<br><br>" + parts.slice(1).join("<br><br>"));
+        rest.hidden = true;
+        var more = el("button", "f-more", "Читать полностью");
+        more.type = "button";
+        more.addEventListener("click", function(){
+          rest.hidden = false; more.remove();
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        });
+        dEl.appendChild(rest);
+        panel.appendChild(dEl);
+        panel.appendChild(more);
+      } else {
+        panel.appendChild(el("p", "f-desc", p.desc));
+      }
+    }
     var body = el("div");
     panel.appendChild(body);
 
