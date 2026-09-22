@@ -182,6 +182,7 @@
   .cs-series{font-weight:600;font-size:14px;color:var(--paper);}
   .cs-cap{font-size:14px;color:#B9AFA0;text-wrap:pretty;}
   .cs-ticks{display:flex;gap:3px;}
+  .cs-note{margin:14px 0 0;max-width:68ch;font-size:15px;line-height:1.6;color:#C4BBAE;text-wrap:pretty;}
   /* the mark stays a hairline; the padding gives it a tappable target */
   .cs-ticks button{flex:1;height:19px;min-width:4px;padding:8px 0;border:0;cursor:pointer;
     background:rgba(241,238,232,.2);background-clip:content-box;}
@@ -751,6 +752,7 @@
     {id:"bertha", y:[2025,2026], ratio:"1.6", code:"PRJ–01", num:"01", t:"Bertha Village, Кипр", meta:"жилой комплекс для пожилых людей · Кипр",
      group:"practice", cat:"built", tag:"построено", catLabel:"построено · жилой комплекс",
      lead:true, leadNote:"последняя работа",
+     notes:{"Первые варианты кластеров":"Этот вариант домов заказчик прислал на адаптацию. Внешний образ был уже сформирован, и я вписывал в него новые планировки по техническому заданию: студии, одно-, двух- и трёхкомнатные квартиры. Рендеры этих домов тоже делал я."},
      desc:"<b>Bertha Village — жилой комплекс для пожилых людей на Кипре.</b> Проект посажен в естественный рельеф участка, с расчётом на приватность, доступность и визуальную связь с ландшафтом. В рамках проекта я занимался разработкой концепции и рабочей документации жилых модулей, включая планировочные решения, фасады и адаптацию зданий к сложному рельефу.",
      imgs:BE},
     {id:"clinic", y:[2020], ratio:"1.78", code:"PRJ–02", num:"02", t:"Поликлиника, Новосибирск", meta:"медицинский центр · 4 эт. · 20 м",
@@ -987,6 +989,10 @@
     });
     inner.appendChild(ticks);
 
+    var note = el("p", "cs-note");
+    note.hidden = true;
+    inner.appendChild(note);
+
     function paint(){
       var rec = p.imgs[idxs[cur]], vsrc = VIDEO[rec.i];
       if(vsrc){
@@ -1005,6 +1011,14 @@
       idx.textContent = pad(cur + 1) + " / " + pad(idxs.length);
       series.textContent = rec.s || "";
       cap.textContent = rec.c || "";
+      var nt = (p.notes && rec.s && p.notes[rec.s]) || "";
+      if(note.textContent !== nt){
+        note.textContent = nt;
+        note.hidden = !nt;
+        // the record was measured when it opened; re-measure so the note is never clipped
+        var host = wrap.closest(".f-panel");
+        if(host && host.getAttribute("data-open") === "true") host.style.maxHeight = host.scrollHeight + "px";
+      }
       open.setAttribute("aria-label", "Открыть слайд " + (cur + 1) + " во весь экран");
       tickBtns.forEach(function(t, i){
         if(i === cur) t.setAttribute("aria-current", "true");
