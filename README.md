@@ -13,6 +13,7 @@
 ```
 index.html        разметка, стили и скрипт целиком
 assets/img/       104 кадра в WebP, включая портрет
+experiments/pattern/  генератор PATTERN — готовая сборка из ../src/pattern (npm run export:site), вкладка «Генератор планировок»
 .nojekyll         GitHub Pages отдаёт файлы как есть
 ```
 
